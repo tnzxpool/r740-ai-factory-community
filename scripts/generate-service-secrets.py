@@ -25,7 +25,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Generate auxiliary service secrets locally")
     parser.add_argument("directory", type=Path)
     args = parser.parse_args()
-    for name in ("parser.key", "tools.token", "sandbox.token"):
+    for name in (
+        "parser.key", "tools.token", "sandbox.token",
+        "orchestrator.key", "backend.key", "portal-core.key",
+    ):
         target = args.directory / name
         action = "created" if create_secret(target) else "kept"
         print(f"{action}: {target}")
@@ -34,4 +37,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

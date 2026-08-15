@@ -11,7 +11,7 @@ import unittest
 from unittest.mock import patch
 
 from r740_core import autorouting
-from r740_core.config import ConfigError, CoreSettings, env_bool, env_int, env_loopback_url
+from r740_core.config import ConfigError, CoreSettings, env_bool, env_int, env_loopback_url, secret_value
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,6 +42,18 @@ class TypedConfigTests(unittest.TestCase):
         self.assertEqual(settings.backend_key, "")
         self.assertEqual(settings.portal_key, "")
         self.assertEqual(settings.allowed_clients, frozenset({"127.0.0.1", "::1"}))
+
+    def test_secret_files_are_local_and_fail_closed(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            secret = Path(directory) / "internal.key"
+            value = "A" * 48
+            secret.write_text(value + "\n", encoding="utf-8")
+            with patch.dict(os.environ, {"TEST_SECRET_FILE": str(secret)}, clear=False):
+                self.assertEqual(secret_value("TEST_SECRET", "TEST_SECRET_FILE"), value)
+            secret.write_text("short", encoding="utf-8")
+            with patch.dict(os.environ, {"TEST_SECRET_FILE": str(secret)}, clear=False):
+                with self.assertRaises(ConfigError):
+                    secret_value("TEST_SECRET", "TEST_SECRET_FILE")
 
 
 class RoutingInvariantTests(unittest.TestCase):

@@ -102,6 +102,10 @@ def main() -> None:
         candidate = ROOT / "components/core" / component["candidate"]
         assert candidate.is_file() and not candidate.is_symlink()
         assert hashlib.sha256(candidate.read_bytes()).hexdigest() == component["candidate_sha256"]
+    for relative, expected_hash in core_provenance["new_portability_files"].items():
+        candidate = ROOT / "components/core" / relative
+        assert candidate.is_file() and not candidate.is_symlink()
+        assert hashlib.sha256(candidate.read_bytes()).hexdigest() == expected_hash
 
     portal_provenance = json.loads(
         (ROOT / "components/portal/SOURCE_MANIFEST.json").read_text(encoding="utf-8")

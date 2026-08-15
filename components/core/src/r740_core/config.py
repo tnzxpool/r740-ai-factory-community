@@ -99,6 +99,20 @@ def env_json_object(name: str, default: dict[str, str]) -> dict[str, str]:
     return value
 
 
+def secret_value(env_name: str, file_env_name: str) -> str:
+    file_name = os.getenv(file_env_name, "").strip()
+    if file_name:
+        path = Path(file_name)
+        if not path.is_file() or path.is_symlink():
+            raise ConfigError(f"{file_env_name} must reference a regular non-symlink file")
+        value = path.read_text(encoding="utf-8").strip()
+    else:
+        value = os.getenv(env_name, "").strip()
+    if value and len(value) < 32:
+        raise ConfigError(f"{env_name} must contain at least 32 characters")
+    return value
+
+
 def env_service_map(name: str, default: dict[str, str]) -> dict[str, str]:
     value = env_json_object(name, default)
     if set(value) != set(default):
@@ -170,9 +184,9 @@ class CoreSettings:
             graphics_state_path=env_path("AI_GRAPHICS_STATE_FILE", state / "registry" / "graphics_state.json"),
             gpu_lock_path=env_path("AI_GPU_LOCK_FILE", runtime / "gpu.lock"),
             workflow_lock_path=env_path("AI_WORKFLOW_LOCK_FILE", runtime / "workflow.lock"),
-            internal_key=os.getenv("AI_ORCHESTRATOR_KEY", ""),
-            backend_key=os.getenv("AI_BACKEND_KEY", ""),
-            portal_key=os.getenv("AI_PORTAL_CORE_KEY", ""),
+            internal_key=secret_value("AI_ORCHESTRATOR_KEY", "AI_ORCHESTRATOR_KEY_FILE"),
+            backend_key=secret_value("AI_BACKEND_KEY", "AI_BACKEND_KEY_FILE"),
+            portal_key=secret_value("AI_PORTAL_CORE_KEY", "AI_PORTAL_CORE_KEY_FILE"),
             runtime_group=env_group(),
             execution_enabled=env_bool("AI_AUTOROUTING_LIVE_ENABLED", False),
             graphics_warm_ttl=env_int("AI_GRAPHICS_WARM_TTL", 600, minimum=60, maximum=86400),
