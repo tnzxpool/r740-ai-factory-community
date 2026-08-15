@@ -78,6 +78,18 @@ The installer creates an isolated Python environment, generates the setup token
 locally and leaves the service stopped until the operator enables it. Set
 `R740_WHEELHOUSE=/path/to/wheels` to force an offline dependency install.
 
+On a systemd GPU host, install the optional core controller with:
+
+```sh
+sudo ./scripts/install-core-systemd.sh
+```
+
+This installs five loopback-only control units but deliberately leaves every
+unit disabled and stopped. It does not download models or create inference
+units. Configure immutable model manifests, install the reviewed runtime and
+qualify local artifacts before enabling the model manager, gateway,
+orchestrator or graphics manager. Autorouting execution remains off by default.
+
 Diagnose or remove the native installation with:
 
 ```sh
