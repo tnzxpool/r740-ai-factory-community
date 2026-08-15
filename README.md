@@ -68,6 +68,14 @@ installation-specific directories should be deleted permanently.
 
 ```sh
 python3 tests/smoke_test.py
+python3 tests/source_import_test.py
+python3 tests/sbom_test.py
+```
+
+Generate a deterministic SPDX 2.3 source SBOM with:
+
+```sh
+SOURCE_DATE_EPOCH=0 python3 scripts/generate-sbom.py --output dist/source-sbom.spdx.json
 ```
 
 If Docker is available, also validate the selected profile:
