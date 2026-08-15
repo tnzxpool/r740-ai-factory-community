@@ -1,0 +1,97 @@
+{
+    "schema":  1,
+    "generated":  "2026-08-15",
+    "license_expression":  "LGPL-3.0-or-later",
+    "live_modified":  false,
+    "contains_secrets":  false,
+    "source_to_candidate":  [
+                                {
+                                    "component":  "adapters",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "local_hash_match",
+                                    "source_sha256":  "59f9b9ec7947871c4b095b4ceebc3a4a469fada6e7746d8d24f950a2221cadf7",
+                                    "candidate":  "src/r740_core/adapters.py",
+                                    "candidate_sha256":  "6fd32089855a75b78c06800bf6b58b6c735494441b8628b0be1a1f0a00e08221"
+                                },
+                                {
+                                    "component":  "autorouting service",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "local_hash_match",
+                                    "source_sha256":  "0c0ccfa7cc4680a340b3e984261a849587a59a9593e41e13494f613289c9763b",
+                                    "candidate":  "src/r740_core/auto_service.py",
+                                    "candidate_sha256":  "f77942734f9249be44722826f6ee1b55c90b954c9d970b1c2516692ed0a6a1df"
+                                },
+                                {
+                                    "component":  "autorouting engine",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "local_hash_match",
+                                    "source_sha256":  "4625e76ff007caf230155d1c2282354788facb2799590e1e754ff054b46dec28",
+                                    "candidate":  "src/r740_core/autorouting.py",
+                                    "candidate_sha256":  "501c0f7ec1cbeb68ea30a4d096daee670386cf20119204f29d3b1eca2e4e5a78"
+                                },
+                                {
+                                    "component":  "gateway",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "local_hash_match",
+                                    "source_sha256":  "93cae43ee3948af8067dd2f0b5872830497e2940e86b038ff719d294ce0ecb7b",
+                                    "candidate":  "src/r740_core/gateway.py",
+                                    "candidate_sha256":  "20b8bd4488dc87ca7518937b57da4ca8f36d2bd71905de947ed942ef74023b54"
+                                },
+                                {
+                                    "component":  "graphics manager",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "local_hash_match",
+                                    "source_sha256":  "c4ad01812c64cd8eb0e7e6d6f6dc3623a689387d6cdfc11f18906fe246f4604f",
+                                    "candidate":  "src/r740_core/graphics_manager.py",
+                                    "candidate_sha256":  "0ab66377f7dbac645bb0f23d9efee86a518e1808f5084654b7909bd40a2f7852"
+                                },
+                                {
+                                    "component":  "model manager",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "local_hash_match",
+                                    "source_sha256":  "6dc922fab68f0ed76419da7e385ecc76ad71d6c36aa52654516b2a0bedeeb82f",
+                                    "candidate":  "src/r740_core/model_manager.py",
+                                    "candidate_sha256":  "8b96c961b51be2463388030466a655bd00e86501f427ec93547ca24d8985de10"
+                                },
+                                {
+                                    "component":  "orchestrator",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "authoritative_read_only_export",
+                                    "source_sha256":  "7511cd0ee3987cb66378adabba7182eac7e8bea67aac799d4df2350f087cfd59",
+                                    "candidate":  "src/r740_core/orchestrator.py",
+                                    "candidate_sha256":  "14436449900d296d40e1a2a4fd57470e030c8528da0b5cf0a6e74680da411499"
+                                },
+                                {
+                                    "component":  "routing planner",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "local_hash_match",
+                                    "source_sha256":  "43fb6aa012dc1c027bcb2ba8b634792a97f9b166f1e867b7c92ad037349ea2eb",
+                                    "candidate":  "src/r740_core/routing_planner.py",
+                                    "candidate_sha256":  "42a1345d282bafb38c7cc134c4122bb8f42843f3f4ef0d0d51e55662bf48f6ae"
+                                },
+                                {
+                                    "component":  "model registry",
+                                    "source":  "private-authoritative-source",
+                                    "source_kind":  "authoritative_read_only_export_then_sanitized",
+                                    "source_sha256":  "ba4ee5fb349c5cbdc37c034995258d799e4777cc9b87afe615359fea7ea97df4",
+                                    "candidate":  "config/model-registry.example.json",
+                                    "candidate_sha256":  "8b2530af3a274871586ffbf942cf780422d3ed48062e81fd9785c9c10a721f44"
+                                }
+                            ],
+    "new_portability_files":  {
+                                  "src/r740_core/config.py":  "cb8d30a3d6dea6236f90c822d077847de3fca64a9f5fbead95791f57558738f8",
+                                  "src/r740_core/__init__.py":  "4a1e8b86e2d3b2f3deffe3f2929fa902159be3e64a53f700f922ddd94238074e",
+                                  "src/r740_core/index.html":  "d9a82b1ba8997d5d466d07620326cd9347820208c95f3ee8e61c09a102e131c6",
+                                  "config/core.env.example":  "30122a12813fcf195a27e1aa012b0dbdba55bfbe7a4189f3358881213ddf3f80",
+                                  "config/model-registry.schema.json":  "d5fca47dd2008cc7b3fde8cc9232ffedd5c5b252161fc4f527b81c05fd01181c"
+                              },
+    "transformations":  [
+                            "added SPDX identifiers and Python package-relative imports",
+                            "replaced private LAN addresses with validated typed environment configuration",
+                            "replaced /ai and private runtime paths with configurable FHS defaults",
+                            "removed all credential values; empty keys retain fail-closed authentication",
+                            "parameterized and validated model service units and loopback endpoints",
+                            "retained FIFO, POSIX lock, one-heavy and single-inference invariants",
+                            "replaced the live registry with a disabled-by-default sanitized example and schema"
+                        ]
+}

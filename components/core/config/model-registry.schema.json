@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/r740/model-registry.schema.json",
+  "title": "R740 AI Factory model registry",
+  "type": "object",
+  "required": ["schema_version", "models", "policy", "routing"],
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "models": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["available", "catalog_state"],
+        "properties": {
+          "available": {"type": "boolean"},
+          "catalog_state": {"enum": ["qualified_local", "candidate_local", "disabled"]},
+          "capabilities": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "selector_visible": {"type": "boolean"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "policy": {
+      "type": "object",
+      "required": ["automatic_routing_enabled", "default_model", "model_switch_fallback", "one_heavy_model_resident", "single_inference_job"],
+      "properties": {
+        "automatic_routing_enabled": {"type": "boolean"},
+        "default_model": {"type": "string", "minLength": 1},
+        "model_switch_fallback": {"type": "string", "minLength": 1},
+        "one_heavy_model_resident": {"const": true},
+        "single_inference_job": {"const": true},
+        "ai_budget_total_gib": {"type": "number", "exclusiveMinimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "routing": {
+      "type": "object",
+      "required": ["allow_remote", "mode", "default_model", "profiles", "execution_families"],
+      "properties": {
+        "allow_remote": {"const": false},
+        "mode": {"enum": ["simulate", "local_auto"]},
+        "default_model": {"type": "string", "minLength": 1},
+        "profiles": {"type": "object"},
+        "execution_families": {"type": "object"}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

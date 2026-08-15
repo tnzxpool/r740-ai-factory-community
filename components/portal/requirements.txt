@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2026 R740 AI Factory contributors
+# SPDX-License-Identifier: LGPL-3.0-or-later
+fastapi==0.116.1
+uvicorn==0.35.0
+httpx==0.28.1
+argon2-cffi==25.1.0
+python-multipart==0.0.20
+pypdf==6.0.0
+Pillow==11.3.0
+pytesseract==0.3.13
+cryptography==49.0.0
+websockets==16.1.1

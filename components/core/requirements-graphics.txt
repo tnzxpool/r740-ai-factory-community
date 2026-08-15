@@ -1,0 +1,8 @@
+-r requirements.txt
+# Live-qualified optional graphics overlay; Linux/NVIDIA only.
+accelerate==1.10.1
+diffusers==0.39.0
+safetensors==0.8.0
+transformers==4.55.2
+# Install this CUDA 11.8 wheel from the official PyTorch index selected by the installer.
+torch==2.7.1+cu118; platform_system == "Linux"

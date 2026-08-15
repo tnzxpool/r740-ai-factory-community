@@ -102,14 +102,18 @@ and SHA-256, then explicitly enable it. See `model-manifests/README.md`.
 Do not expose port 8080 directly to the Internet. Use a TLS reverse proxy and
 network policy appropriate to the deployment.
 
-## Deliberately missing integration inputs
+## Application component staging
 
-The production portal, user database, model lifecycle manager, graphics worker,
-MCP broker and Proxmox layout were not copied because no single release-ready,
-authoritative source tree was identifiable in this workspace. Their integration
-points are represented by configuration and adapter contracts rather than stale
-candidate files. A release must import reviewed canonical components, add data
-migrations and pass product-level E2E tests.
+Sanitized, hash-traced versions of the production core and portal now live under
+`components/core` and `components/portal`. They preserve model lifecycle,
+single-GPU serialization, routing, graphics, users/capabilities, FIFO and the
+compact UI while replacing deployment addresses, paths and demo credentials
+with fail-closed configuration.
+
+They are deliberately not wired into the base installer yet. A release still
+needs a common process topology, complete migration chain, rendered service
+units, clean-machine integration and product-level E2E tests. The live user
+database, Proxmox layout and site-specific configuration are never imported.
 
 ## Staged optional services
 

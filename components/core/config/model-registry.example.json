@@ -1,0 +1,72 @@
+{
+  "$schema": "./model-registry.schema.json",
+  "schema_version": 1,
+  "models": {
+    "qwen3.6-35b-a3b-iq4xs": {
+      "available": false,
+      "catalog_state": "qualified_local",
+      "capabilities": ["text", "reasoning", "coding", "tools"],
+      "selector_visible": true
+    },
+    "qwen3-8b": {
+      "available": false,
+      "catalog_state": "qualified_local",
+      "capabilities": ["text", "reasoning"],
+      "selector_visible": true
+    },
+    "qwen3-vl-8b": {
+      "available": false,
+      "catalog_state": "candidate_local",
+      "capabilities": ["text", "vision", "ocr-visual"],
+      "selector_visible": true
+    },
+    "glm-4.7-flash": {
+      "available": false,
+      "catalog_state": "candidate_local",
+      "capabilities": ["text", "reasoning", "coding", "tools"],
+      "selector_visible": true
+    },
+    "sdxl-1.0": {
+      "available": false,
+      "catalog_state": "candidate_local",
+      "capabilities": ["image-generation"],
+      "selector_visible": false
+    }
+  },
+  "policy": {
+    "automatic_routing_enabled": false,
+    "default_model": "qwen3.6-35b-a3b-iq4xs",
+    "model_switch_fallback": "qwen3-8b",
+    "one_heavy_model_resident": true,
+    "single_inference_job": true,
+    "ai_budget_total_gib": 80
+  },
+  "routing": {
+    "allow_remote": false,
+    "mode": "simulate",
+    "default_model": "qwen3.6-35b-a3b-iq4xs",
+    "default_profile": "auto",
+    "profiles": {
+      "auto": {
+        "enabled": true,
+        "user_visible": true,
+        "task_routes": {
+          "general_chat": "general",
+          "structured_output": "structured",
+          "coding": "structured",
+          "frontend_ui": "structured",
+          "vision_ocr": "vision",
+          "document_retrieval": "vision",
+          "image_generation": "graphics",
+          "tool_execution": "structured"
+        }
+      }
+    },
+    "execution_families": {
+      "general": {"models": ["qwen3.6-35b-a3b-iq4xs", "qwen3-8b"], "fallback": "qwen3-8b"},
+      "structured": {"models": ["qwen3.6-35b-a3b-iq4xs", "glm-4.7-flash", "qwen3-8b"], "fallback": "qwen3-8b"},
+      "vision": {"models": ["qwen3-vl-8b", "qwen3.6-35b-a3b-iq4xs", "qwen3-8b"], "fallback": "qwen3-8b"},
+      "graphics": {"models": ["sdxl-1.0"], "fallback": "sdxl-1.0"}
+    }
+  }
+}

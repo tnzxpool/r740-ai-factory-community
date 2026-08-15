@@ -1,0 +1,60 @@
+{
+  "policy": {
+    "automatic_routing_enabled": true,
+    "single_inference_job": true,
+    "one_heavy_model_resident": true
+  },
+  "routing": {
+    "mode": "local_auto",
+    "allow_remote": false,
+    "default_model": "qwen3.6-35b-a3b-iq4xs",
+    "execution_families": {
+      "general": {"models": ["qwen3.6-35b-a3b-iq4xs"], "fallback": "qwen3.6-35b-a3b-iq4xs"},
+      "structured": {"models": ["glm-4.7-flash", "qwen3.6-35b-a3b-iq4xs"], "fallback": "qwen3.6-35b-a3b-iq4xs"},
+      "vision": {"models": ["qwen3-vl-8b"], "fallback": null},
+      "graphics": {"models": ["sdxl-1.0"], "fallback": null},
+      "documents": {"models": ["glm-ocr-q8", "qwen3-vl-8b"], "fallback": null}
+    },
+    "profiles": {
+      "auto": {
+        "label": "Auto",
+        "description": "Il sistema sceglie e riduce i cambi modello.",
+        "enabled": true,
+        "user_visible": true,
+        "task_routes": {"general_chat": "general", "structured_output": "structured", "coding": "structured", "frontend_ui": "structured", "vision_ocr": "vision", "document_retrieval": "documents", "image_generation": "graphics", "tool_execution": "structured"}
+      },
+      "fast": {
+        "label": "Risposta rapida",
+        "description": "Privilegia il motore gia pronto.",
+        "enabled": true,
+        "user_visible": true,
+        "task_routes": {"general_chat": "general", "structured_output": "general", "coding": "general", "frontend_ui": "general", "vision_ocr": "vision", "document_retrieval": "documents", "image_generation": "graphics", "tool_execution": "general"}
+      },
+      "structured": {
+        "label": "Codice e dati",
+        "description": "Per codice, JSON e strumenti.",
+        "enabled": true,
+        "user_visible": true,
+        "task_routes": {"general_chat": "general", "structured_output": "structured", "coding": "structured", "frontend_ui": "structured", "vision_ocr": "vision", "document_retrieval": "documents", "image_generation": "graphics", "tool_execution": "structured"}
+      },
+      "vision": {
+        "label": "Visione e documenti",
+        "description": "Per immagini, OCR e allegati.",
+        "enabled": true,
+        "user_visible": true,
+        "task_routes": {"general_chat": "general", "structured_output": "structured", "coding": "structured", "frontend_ui": "structured", "vision_ocr": "vision", "document_retrieval": "documents", "image_generation": "graphics", "tool_execution": "structured"}
+      }
+    }
+  },
+  "models": {
+    "qwen3.6-35b-a3b-iq4xs": {"catalog_state": "qualified_local", "available": true, "execution_mode": "switch_managed"},
+    "qwen3-8b": {"catalog_state": "qualified_local", "available": true, "execution_mode": "switch_managed"},
+    "glm-4.7-flash": {"catalog_state": "qualified_local", "available": true, "execution_mode": "switch_managed"},
+    "qwen3-vl-8b": {"catalog_state": "qualified_local", "available": true, "execution_mode": "switch_managed"},
+    "sdxl-1.0": {"catalog_state": "qualified_local", "available": true, "execution_mode": "transactional", "selector_visible": true},
+    "glm-ocr-q8": {"catalog_state": "qualified_local", "available": true, "execution_mode": "transactional", "selector_visible": false},
+    "not-installed": {"catalog_state": "candidate_local", "available": false}
+  }
+}
+
+

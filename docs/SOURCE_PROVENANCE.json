@@ -1,25 +1,110 @@
 {
-  "schema": 1,
-  "captured_at": "2026-08-15",
-  "purpose": "Hash-only import contract for sanitizing the authoritative R740 deployment into the community tree",
-  "production_values_included": false,
-  "components": [
-    {"group":"core","file":"adapters.py","sha256":"59f9b9ec7947871c4b095b4ceebc3a4a469fada6e7746d8d24f950a2221cadf7","import_status":"pending_sanitization"},
-    {"group":"core","file":"auto_service.py","sha256":"0c0ccfa7cc4680a340b3e984261a849587a59a9593e41e13494f613289c9763b","import_status":"pending_sanitization"},
-    {"group":"core","file":"autorouting.py","sha256":"4625e76ff007caf230155d1c2282354788facb2799590e1e754ff054b46dec28","import_status":"pending_sanitization"},
-    {"group":"core","file":"gateway.py","sha256":"93cae43ee3948af8067dd2f0b5872830497e2940e86b038ff719d294ce0ecb7b","import_status":"pending_sanitization"},
-    {"group":"core","file":"graphics_manager.py","sha256":"c4ad01812c64cd8eb0e7e6d6f6dc3623a689387d6cdfc11f18906fe246f4604f","import_status":"pending_sanitization"},
-    {"group":"core","file":"model_manager.py","sha256":"6dc922fab68f0ed76419da7e385ecc76ad71d6c36aa52654516b2a0bedeeb82f","import_status":"pending_sanitization"},
-    {"group":"core","file":"orchestrator.py","sha256":"7511cd0ee3987cb66378adabba7182eac7e8bea67aac799d4df2350f087cfd59","import_status":"exported_pending_sanitization"},
-    {"group":"core","file":"routing_planner.py","sha256":"43fb6aa012dc1c027bcb2ba8b634792a97f9b166f1e867b7c92ad037349ea2eb","import_status":"pending_sanitization"},
-    {"group":"core","file":"capabilities.json","sha256":"ba4ee5fb349c5cbdc37c034995258d799e4777cc9b87afe615359fea7ea97df4","import_status":"exported_pending_template"},
-    {"group":"portal","file":"portal.py","sha256":"fb02a66a069b1a14cf18dfb1ac84b3bf3af0c11b97b2b823883cecf32076aa34","import_status":"pending_sanitization"},
-    {"group":"portal","file":"index.html","sha256":"9226f41e8949406785569afef3a46a7925feccb492f39e4c948ebb2e0a73dded","import_status":"pending_sanitization"},
-    {"group":"portal","file":"admin.html","sha256":"24a5f3ede96191485599f19670ad307ba347ec750f8b7e3c08cacee538b7d763","import_status":"pending_sanitization"},
-    {"group":"portal","file":"login.html","sha256":"34aea3d42acd1565e617d9c0b9f8cf07452d21e3c8f9e64fdc1cd43dd92b0997","import_status":"pending_remove_demo_credentials"},
-    {"group":"portal","file":"artifact_policy.py","sha256":"8a1506d0614cab2d94375fe47b77b52acf2b8f069d61814650b812ddbcff59e5","import_status":"pending_sanitization"},
-    {"group":"parser","file":"parser_gateway.py","sha256":"0763cdf1687c23f495a16a52fea05b70c22a5ad0d249a67385370f0fa6d2d7de","import_status":"sanitized_staged"},
-    {"group":"tools","file":"ai_tools/app.py","sha256":"04e675ef8bbd4cced18cad7f640e6341cfb6cb32432ff02e1b04552eda7cc098","import_status":"sanitized_staged"},
-    {"group":"sandbox","file":"sandbox_api.py","sha256":"eaf8f4c82d93970056fc4dac8c439c7cacbb8401b18445982ee9c8f8985236e1","import_status":"sanitized_staged"}
-  ]
+    "schema":  1,
+    "captured_at":  "2026-08-15",
+    "purpose":  "Hash-only import contract for sanitizing the authoritative R740 deployment into the community tree",
+    "production_values_included":  false,
+    "components":  [
+                       {
+                           "group":  "core",
+                           "file":  "adapters.py",
+                           "sha256":  "59f9b9ec7947871c4b095b4ceebc3a4a469fada6e7746d8d24f950a2221cadf7",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "core",
+                           "file":  "auto_service.py",
+                           "sha256":  "0c0ccfa7cc4680a340b3e984261a849587a59a9593e41e13494f613289c9763b",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "core",
+                           "file":  "autorouting.py",
+                           "sha256":  "4625e76ff007caf230155d1c2282354788facb2799590e1e754ff054b46dec28",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "core",
+                           "file":  "gateway.py",
+                           "sha256":  "93cae43ee3948af8067dd2f0b5872830497e2940e86b038ff719d294ce0ecb7b",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "core",
+                           "file":  "graphics_manager.py",
+                           "sha256":  "c4ad01812c64cd8eb0e7e6d6f6dc3623a689387d6cdfc11f18906fe246f4604f",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "core",
+                           "file":  "model_manager.py",
+                           "sha256":  "6dc922fab68f0ed76419da7e385ecc76ad71d6c36aa52654516b2a0bedeeb82f",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "core",
+                           "file":  "orchestrator.py",
+                           "sha256":  "7511cd0ee3987cb66378adabba7182eac7e8bea67aac799d4df2350f087cfd59",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "core",
+                           "file":  "routing_planner.py",
+                           "sha256":  "43fb6aa012dc1c027bcb2ba8b634792a97f9b166f1e867b7c92ad037349ea2eb",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "core",
+                           "file":  "capabilities.json",
+                           "sha256":  "ba4ee5fb349c5cbdc37c034995258d799e4777cc9b87afe615359fea7ea97df4",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "portal",
+                           "file":  "portal.py",
+                           "sha256":  "fb02a66a069b1a14cf18dfb1ac84b3bf3af0c11b97b2b823883cecf32076aa34",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "portal",
+                           "file":  "index.html",
+                           "sha256":  "9226f41e8949406785569afef3a46a7925feccb492f39e4c948ebb2e0a73dded",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "portal",
+                           "file":  "admin.html",
+                           "sha256":  "24a5f3ede96191485599f19670ad307ba347ec750f8b7e3c08cacee538b7d763",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "portal",
+                           "file":  "login.html",
+                           "sha256":  "34aea3d42acd1565e617d9c0b9f8cf07452d21e3c8f9e64fdc1cd43dd92b0997",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "portal",
+                           "file":  "artifact_policy.py",
+                           "sha256":  "8a1506d0614cab2d94375fe47b77b52acf2b8f069d61814650b812ddbcff59e5",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "parser",
+                           "file":  "parser_gateway.py",
+                           "sha256":  "0763cdf1687c23f495a16a52fea05b70c22a5ad0d249a67385370f0fa6d2d7de",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "tools",
+                           "file":  "ai_tools/app.py",
+                           "sha256":  "04e675ef8bbd4cced18cad7f640e6341cfb6cb32432ff02e1b04552eda7cc098",
+                           "import_status":  "sanitized_staged"
+                       },
+                       {
+                           "group":  "sandbox",
+                           "file":  "sandbox_api.py",
+                           "sha256":  "eaf8f4c82d93970056fc4dac8c439c7cacbb8401b18445982ee9c8f8985236e1",
+                           "import_status":  "sanitized_staged"
+                       }
+                   ]
 }

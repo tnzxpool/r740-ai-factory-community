@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "r740-ai-factory-core"
+version = "0.1.0"
+description = "Fail-closed local AI orchestration core for single-GPU test systems"
+requires-python = ">=3.11"
+license = {text = "LGPL-3.0-or-later"}
+dependencies = [
+  "fastapi==0.116.1",
+  "httpx==0.28.1",
+  "pydantic==2.11.7",
+  "starlette==0.47.3",
+  "uvicorn==0.35.0",
+]
+
+[project.optional-dependencies]
+graphics = [
+  "accelerate==1.10.1",
+  "diffusers==0.39.0",
+  "safetensors==0.8.0",
+  "transformers==4.55.2",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+r740_core = ["index.html"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

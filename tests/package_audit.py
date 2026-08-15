@@ -93,6 +93,30 @@ def main() -> None:
         actual = hashlib.sha256(candidate.read_bytes()).hexdigest()
         assert actual == component["sanitized_sha256"], f"service drift: {candidate}"
 
+    core_provenance = json.loads(
+        (ROOT / "components/core/SOURCE-MANIFEST.json").read_text(encoding="utf-8")
+    )
+    assert core_provenance["contains_secrets"] is False
+    for component in core_provenance["source_to_candidate"]:
+        assert component["source"] == "private-authoritative-source"
+        candidate = ROOT / "components/core" / component["candidate"]
+        assert candidate.is_file() and not candidate.is_symlink()
+        assert hashlib.sha256(candidate.read_bytes()).hexdigest() == component["candidate_sha256"]
+
+    portal_provenance = json.loads(
+        (ROOT / "components/portal/SOURCE_MANIFEST.json").read_text(encoding="utf-8")
+    )
+    assert portal_provenance["authoritative_inventory"] == "hash-only private inventory"
+    for component in portal_provenance["entries"]:
+        assert component["source"] == "private-authoritative-source"
+        candidate = ROOT / "components/portal" / component["candidate"]
+        assert candidate.is_file() and not candidate.is_symlink()
+        assert hashlib.sha256(candidate.read_bytes()).hexdigest() == component["candidate_sha256"]
+    for component in portal_provenance["new_files"]:
+        candidate = ROOT / "components/portal" / component["candidate"]
+        assert candidate.is_file() and not candidate.is_symlink()
+        assert hashlib.sha256(candidate.read_bytes()).hexdigest() == component["candidate_sha256"]
+
     compose = (ROOT / "compose.yaml").read_text(encoding="utf-8")
     assert "file: ./secrets/admin_token" in compose
     assert "profiles: [\"cpu\"]" in compose

@@ -1,0 +1,130 @@
+{
+    "schema":  1,
+    "authoritative_inventory":  "hash-only private inventory",
+    "live_modified":  false,
+    "community_repository_modified":  false,
+    "entries":  [
+                    {
+                        "source":  "private-authoritative-source",
+                        "source_sha256":  "fb02a66a069b1a14cf18dfb1ac84b3bf3af0c11b97b2b823883cecf32076aa34",
+                        "candidate":  "src/r740_portal/portal.py",
+                        "candidate_sha256":  "8037c0bb5994295e2e53155557e6972d516da02c463e1322d8c61cf67f4d6fc8",
+                        "transformation":  "portable config import, fail-closed availability, opt-in demo migration, SPDX"
+                    },
+                    {
+                        "source":  "private-authoritative-source",
+                        "source_sha256":  "9226f41e8949406785569afef3a46a7925feccb492f39e4c948ebb2e0a73dded",
+                        "candidate":  "src/r740_portal/index.html",
+                        "candidate_sha256":  "fd51aa745f20700b396d86eddaea3774d79bbceb2b626a30253e5df0b081b714",
+                        "transformation":  "relative Admin route and SPDX; compact/selectors/graphics UI preserved"
+                    },
+                    {
+                        "source":  "private-authoritative-source",
+                        "source_sha256":  "24a5f3ede96191485599f19670ad307ba347ec750f8b7e3c08cacee538b7d763",
+                        "candidate":  "src/r740_portal/admin.html",
+                        "candidate_sha256":  "099e26e2f759c6e8ed7ae80f65ea3f5561d3a2b223d2f92c503b60f9a5d820c0",
+                        "transformation":  "SPDX only"
+                    },
+                    {
+                        "source":  "private-authoritative-source",
+                        "source_sha256":  "34aea3d42acd1565e617d9c0b9f8cf07452d21e3c8f9e64fdc1cd43dd92b0997",
+                        "candidate":  "src/r740_portal/login.html",
+                        "candidate_sha256":  "450c5916e30b57bb60bd76b2b5aece4713f13f9baa7cba9d6f0e0ef406391954",
+                        "transformation":  "embedded demo credential removed; optional username-only banner; SPDX"
+                    },
+                    {
+                        "source":  "private-authoritative-source",
+                        "source_sha256":  "35dde7653c6b575138ee4cd1cdb93ddcc96cf2a80578a21b2b42f59d616adac7",
+                        "candidate":  "src/r740_portal/change-password.html",
+                        "candidate_sha256":  "194ec1c4f08542bf75710e3e3e5ae4d20f478a1effc2417eb583332286737926",
+                        "transformation":  "SPDX only"
+                    },
+                    {
+                        "source":  "private-authoritative-source",
+                        "source_sha256":  "5d2942060b43140b39cbb2e44bdad85a89bef36b49d8b57b5473806147d92f4b",
+                        "candidate":  "src/r740_portal/setup.html",
+                        "candidate_sha256":  "055611303370ff3af8cd8b7da06daabd6fa91ea7c7242408448c93881e1bb4b6",
+                        "transformation":  "portable Admin-network wording and SPDX"
+                    },
+                    {
+                        "source":  "private-authoritative-source",
+                        "source_sha256":  "8a1506d0614cab2d94375fe47b77b52acf2b8f069d61814650b812ddbcff59e5",
+                        "candidate":  "src/r740_portal/artifact_policy.py",
+                        "candidate_sha256":  "612d6b499ef1bb49ded58d834bf2f2071bc1c51623237666f257b3160bcfd59d",
+                        "transformation":  "package-relative import compatibility and SPDX"
+                    },
+                    {
+                        "source":  "private-authoritative-source",
+                        "source_sha256":  "06a7da1186e1ab49e4bb189205affde52bcda68449387c164c4fd15d97870ca8",
+                        "candidate":  "requirements.txt",
+                        "candidate_sha256":  "e1df7c92f8cd69dedd01acf752a554f7024404a56ca3963024937461c407c443",
+                        "transformation":  "SPDX comments; versions preserved"
+                    }
+                ],
+    "new_files":  [
+                      {
+                          "candidate":  "GAPS.md",
+                          "candidate_sha256":  "c718f67692eb71b25ad20d02a03ef927dc8d8d9e30b7f50391201667373855d7"
+                      },
+                      {
+                          "candidate":  "migrations/0001_initial.sql",
+                          "candidate_sha256":  "7780f2bd1f13b8ba97d15d7badfcadde4159dc42352043f374c0754fa449b599"
+                      },
+                      {
+                          "candidate":  "migrations/README.md",
+                          "candidate_sha256":  "9e319871b8c223ed53dc4607a28f5dd8a49d6b295448cd4e4c22dceced0d1105"
+                      },
+                      {
+                          "candidate":  "pyproject.toml",
+                          "candidate_sha256":  "cf9ebcfe405e994d2e44f8d0c74f5bbe0c6476a8ceeba4fbe34a06a485f7ad93"
+                      },
+                      {
+                          "candidate":  "README.md",
+                          "candidate_sha256":  "228bee0c67a05f53888f22af74afd60ee4202796bc2e6ac2bbe03f53f50f3054"
+                      },
+                      {
+                          "candidate":  "requirements-test.txt",
+                          "candidate_sha256":  "fc07ba51c377a008f1e7f768f72e506e81d59fe663c87728639653167bcafefd"
+                      },
+                      {
+                          "candidate":  "runtime.env.example",
+                          "candidate_sha256":  "3bef1fd778bc5c16b0b955361ec2d8e321604b46eadb5d20c1c74fb053df5c61"
+                      },
+                      {
+                          "candidate":  "scripts/extract_initial_schema.py",
+                          "candidate_sha256":  "56d6ff1aac4c784a92872cf4a28cbb3664061ef7330b4913b7de3c222ade40b3"
+                      },
+                      {
+                          "candidate":  "scripts/sanitize_html.py",
+                          "candidate_sha256":  "2386b36628c526b2088dfd5459cbc8b0b92db5e4e731013b271f046710725ff8"
+                      },
+                      {
+                          "candidate":  "src/r740_portal/__init__.py",
+                          "candidate_sha256":  "2a7f0dccb5f0ef6d2c9f6803542064ac4f29aeea33ead18d2763a5ec5a8004a4"
+                      },
+                      {
+                          "candidate":  "src/r740_portal/community_config.py",
+                          "candidate_sha256":  "e249c36dcbde115dd2bdc7ceb012a885f413b1072c7be7995533a00fb06769fe"
+                      },
+                      {
+                          "candidate":  "tests/secret_scan.py",
+                          "candidate_sha256":  "5eb21f88e812be934995133c9fe00004ce634f3fda05c473f407662e79d97002"
+                      },
+                      {
+                          "candidate":  "tests/test_community_portal.py",
+                          "candidate_sha256":  "04dba63b492bcca6f141f9a8c529b1abad4366591d2b13049bf28107abb7e358"
+                      },
+                      {
+                          "candidate":  "tests/test_portal_contracts.py",
+                          "candidate_sha256":  "fcf5ed4185fcb579e561b2ff5a7c34aac1f9cb7e9c6d8124fe5465aba3d5b3ec"
+                      }
+                  ],
+    "gaps":  [
+                 "hash_complete_dependency_lock_and_sbom",
+                 "numbered_legacy_migration_modules",
+                 "clean_external_service_integration_tests",
+                 "copyright_owner_confirmation",
+                 "wheel_sdist_artifact_scan",
+                 "no_live_deployment_of_candidate"
+             ]
+}
