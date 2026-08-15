@@ -70,6 +70,13 @@ def main() -> None:
         assert model["artifact"] is None
         assert model["sha256"] is None
 
+    provenance = json.loads((ROOT / "docs/SOURCE_PROVENANCE.json").read_text())
+    assert provenance["production_values_included"] is False
+    assert len(provenance["components"]) >= 17
+    for component in provenance["components"]:
+        assert re.fullmatch(r"[0-9a-f]{64}", component["sha256"])
+        assert component["import_status"] != "integrated"
+
     compose = (ROOT / "compose.yaml").read_text(encoding="utf-8")
     assert "file: ./secrets/admin_token" in compose
     assert "profiles: [\"cpu\"]" in compose
