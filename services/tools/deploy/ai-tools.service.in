@@ -1,0 +1,26 @@
+[Unit]
+Description=R740 Community read-only tools broker
+After=network-online.target @SEARXNG_UNIT@
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_GROUP@
+EnvironmentFile=@CONFIG_DIR@/tools.env
+ExecStart=@VENV_DIR@/bin/uvicorn ai_tools.app:app --app-dir @INSTALL_DIR@ --host ${AI_TOOLS_BIND} --port ${AI_TOOLS_PORT} --workers 1 --no-server-header
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_UNIX
+RestrictRealtime=true
+SystemCallArchitectures=native
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
+

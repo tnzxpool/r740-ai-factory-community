@@ -1,0 +1,26 @@
+[Unit]
+Description=R740 Community isolated per-user script sandbox
+After=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=@CONFIG_DIR@/sandbox.env
+WorkingDirectory=@INSTALL_DIR@
+ExecStart=@VENV_DIR@/bin/uvicorn sandbox_api:app --host ${AI_SANDBOX_BIND} --port ${AI_SANDBOX_PORT} --workers 1 --no-access-log
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=false
+PrivateTmp=true
+ProtectHome=false
+ProtectSystem=strict
+ReadWritePaths=@SANDBOX_MOUNT@ @STATE_DIR@ @RUNNER_RUNTIME@ @RUNNER_HOME@
+CapabilityBoundingSet=CAP_CHOWN CAP_DAC_OVERRIDE CAP_FOWNER CAP_SYS_ADMIN CAP_SETUID CAP_SETGID CAP_SETPCAP
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_UNIX
+RestrictRealtime=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
+

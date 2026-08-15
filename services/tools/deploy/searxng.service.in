@@ -1,0 +1,26 @@
+[Unit]
+Description=R740 Community private SearXNG backend
+After=network-online.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_GROUP@
+WorkingDirectory=@SOURCE_DIR@
+Environment=SEARXNG_SETTINGS_PATH=@CONFIG_DIR@/searxng-settings.yml
+ExecStart=@VENV_DIR@/bin/granian --interface wsgi --host 127.0.0.1 --port 8080 --workers 1 searx.webapp:app
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_INET AF_UNIX
+RestrictRealtime=true
+SystemCallArchitectures=native
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target
+

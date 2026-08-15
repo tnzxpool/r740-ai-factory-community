@@ -1,0 +1,27 @@
+[Unit]
+Description=R740 Community isolated document parser
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_GROUP@
+EnvironmentFile=@CONFIG_DIR@/parser.env
+ExecStart=/usr/bin/python3 @INSTALL_DIR@/parser_gateway.py
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+CapabilityBoundingSet=
+AmbientCapabilities=
+MemoryMax=1400M
+TasksMax=96
+LimitNOFILE=1024
+
+[Install]
+WantedBy=multi-user.target
+

@@ -111,6 +111,21 @@ points are represented by configuration and adapter contracts rather than stale
 candidate files. A release must import reviewed canonical components, add data
 migrations and pass product-level E2E tests.
 
+## Staged optional services
+
+Sanitized, hash-traced source is now included for:
+
+- the authenticated Tika/Tesseract parser gateway;
+- read-only web/MCP tools with SSRF protections;
+- the isolated rootless-Podman sandbox API;
+- the Windows Local-MCP read-only connector.
+
+They are not enabled by the base installer. Each service has its own example
+configuration, dependency lock or system dependency manifest, unit template and
+tests under `services/` or `clients/`. Platform acceptance still requires Linux
+for parser/sandbox, SearXNG dependency resolution for tools and Windows DPAPI for
+Local-MCP. See `docs/SERVICES_PORTABILITY.md`.
+
 ## Licensing status
 
 Source files carry `SPDX-License-Identifier: LGPL-3.0-or-later`. Before publishing,

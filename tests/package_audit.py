@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import re
 from pathlib import Path
 
@@ -76,6 +77,21 @@ def main() -> None:
     for component in provenance["components"]:
         assert re.fullmatch(r"[0-9a-f]{64}", component["sha256"])
         assert component["import_status"] != "integrated"
+
+    services_provenance = json.loads(
+        (ROOT / "docs/SERVICES_PROVENANCE.json").read_text(encoding="utf-8")
+    )
+    assert services_provenance["production_values_included"] is False
+    assert len(services_provenance["files"]) >= 13
+    for component in services_provenance["files"]:
+        relative = component["path"]
+        if relative.startswith("clients/local-mcp/"):
+            candidate = ROOT / relative
+        else:
+            candidate = ROOT / "services" / relative
+        assert candidate.is_file() and not candidate.is_symlink()
+        actual = hashlib.sha256(candidate.read_bytes()).hexdigest()
+        assert actual == component["sanitized_sha256"], f"service drift: {candidate}"
 
     compose = (ROOT / "compose.yaml").read_text(encoding="utf-8")
     assert "file: ./secrets/admin_token" in compose

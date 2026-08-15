@@ -1,0 +1,12 @@
+{
+  "endpoint": "wss://ai-factory.example.org:8448/api/local-mcp/connect",
+  "tls_trust": "system",
+  "consent": "every_call",
+  "result_limit_bytes": 65536,
+  "timeout_seconds": 20,
+  "allowed_roots": [],
+  "allowed_tools": {
+    "local_files_list": "read",
+    "local_files_read_text": "read"
+  }
+}

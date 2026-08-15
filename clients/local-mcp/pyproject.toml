@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "r740-local-mcp"
+version = "0.2.1"
+description = "Outbound-only, read-only Local MCP connector"
+requires-python = ">=3.11"
+license = {text = "LGPL-3.0-or-later"}
+dependencies = ["cryptography==49.0.0", "websockets==16.1.1"]
+
+[project.scripts]
+r740-local-mcp = "r740_local_mcp.cli:main"
+
+[tool.setuptools]
+packages = ["r740_local_mcp"]
+

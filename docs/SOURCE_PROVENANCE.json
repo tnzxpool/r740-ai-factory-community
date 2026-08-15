@@ -18,8 +18,8 @@
     {"group":"portal","file":"admin.html","sha256":"24a5f3ede96191485599f19670ad307ba347ec750f8b7e3c08cacee538b7d763","import_status":"pending_sanitization"},
     {"group":"portal","file":"login.html","sha256":"34aea3d42acd1565e617d9c0b9f8cf07452d21e3c8f9e64fdc1cd43dd92b0997","import_status":"pending_remove_demo_credentials"},
     {"group":"portal","file":"artifact_policy.py","sha256":"8a1506d0614cab2d94375fe47b77b52acf2b8f069d61814650b812ddbcff59e5","import_status":"pending_sanitization"},
-    {"group":"parser","file":"parser_gateway.py","sha256":"0763cdf1687c23f495a16a52fea05b70c22a5ad0d249a67385370f0fa6d2d7de","import_status":"pending_sanitization"},
-    {"group":"tools","file":"ai_tools/app.py","sha256":"04e675ef8bbd4cced18cad7f640e6341cfb6cb32432ff02e1b04552eda7cc098","import_status":"pending_sanitization"},
-    {"group":"sandbox","file":"sandbox_api.py","sha256":"eaf8f4c82d93970056fc4dac8c439c7cacbb8401b18445982ee9c8f8985236e1","import_status":"pending_sanitization"}
+    {"group":"parser","file":"parser_gateway.py","sha256":"0763cdf1687c23f495a16a52fea05b70c22a5ad0d249a67385370f0fa6d2d7de","import_status":"sanitized_staged"},
+    {"group":"tools","file":"ai_tools/app.py","sha256":"04e675ef8bbd4cced18cad7f640e6341cfb6cb32432ff02e1b04552eda7cc098","import_status":"sanitized_staged"},
+    {"group":"sandbox","file":"sandbox_api.py","sha256":"eaf8f4c82d93970056fc4dac8c439c7cacbb8401b18445982ee9c8f8985236e1","import_status":"sanitized_staged"}
   ]
 }

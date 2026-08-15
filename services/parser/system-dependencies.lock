@@ -1,0 +1,7 @@
+python=3.11
+java=17
+tesseract=5.3.0
+tesseract_languages=eng,ita
+tika_version=3.3.2
+tika_app_sha256=71ca551380e5eab1add99101f4597a8a49a6a18c6143d6874ee9599ca10ae00e
+

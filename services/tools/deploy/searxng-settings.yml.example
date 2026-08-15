@@ -1,0 +1,33 @@
+use_default_settings: true
+
+general:
+  instance_name: "R740 private search"
+  debug: false
+  enable_metrics: false
+
+server:
+  bind_address: "127.0.0.1"
+  port: 8080
+  secret_key: "replace-with-a-separate-random-secret"
+  limiter: false
+  public_instance: false
+  image_proxy: false
+
+search:
+  safe_search: 1
+  formats:
+    - json
+
+outgoing:
+  request_timeout: 6.0
+  max_request_timeout: 10.0
+  pool_connections: 20
+  pool_maxsize: 10
+  enable_http2: true
+
+valkey:
+  url: false
+
+# SearXNG is never exposed outside loopback. The broker filters and caps its
+# output; the CT firewall remains responsible for blocking every LAN/private
+# destination at layer 3/4.

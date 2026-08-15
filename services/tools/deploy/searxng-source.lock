@@ -1,0 +1,8 @@
+# SearXNG is a rolling project and does not publish GitHub releases/tags.
+# This full commit is GitHub-verified and backs the official documentation
+# build 2026.7.28+c01178d03. setup.py classifies it Production/Stable.
+SEARXNG_REPOSITORY=https://github.com/searxng/searxng.git
+SEARXNG_COMMIT=c01178d03129d861582adf84a692e699f2f7ec05
+SEARXNG_COMMIT_DATE=2026-07-28T19:40:42Z
+SEARXNG_DOCS_BUILD=2026.7.28+c01178d03
+

@@ -42,3 +42,35 @@ jobs:
         run: docker compose --profile cpu config --quiet
       - name: Build CPU image
         run: docker compose --profile cpu build
+
+  auxiliary-services:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install tools test dependencies
+        run: python -m pip install -r services/tools/requirements.lock
+      - name: Parser authentication smoke
+        run: python services/parser/tests/test_smoke.py
+      - name: Tools SSRF and read-only contracts
+        env:
+          PYTHONPATH: services/tools/src
+        run: python services/tools/tests/test_ai_tools.py
+      - name: Sandbox fail-closed contract
+        run: python services/sandbox/tests/test_delete_contract.py
+
+  local-mcp-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install hash-locked dependencies
+        working-directory: clients/local-mcp
+        run: python -m pip install --require-hashes -r requirements.lock
+      - name: Local-MCP tests
+        working-directory: clients/local-mcp
+        run: python -m unittest discover -s tests

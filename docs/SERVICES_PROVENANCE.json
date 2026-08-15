@@ -1,0 +1,86 @@
+{
+    "schema_version":  1,
+    "captured_at":  "2026-08-15",
+    "production_values_included":  false,
+    "local_mcp_baseline_archive_sha256":  "2708445db178b805a97c305d1ffd050d8f2e1277b39d47eeceb7de8fdf051ce4",
+    "files":  [
+                  {
+                      "component":  "parser",
+                      "path":  "parser/src/parser_gateway.py",
+                      "authoritative_sha256":  "0763cdf1687c23f495a16a52fea05b70c22a5ad0d249a67385370f0fa6d2d7de",
+                      "sanitized_sha256":  "39c694f732f587736225000c644354b6385c918c0b2abf05876b3b0b6263a3be"
+                  },
+                  {
+                      "component":  "tools",
+                      "path":  "tools/src/ai_tools/app.py",
+                      "authoritative_sha256":  "04e675ef8bbd4cced18cad7f640e6341cfb6cb32432ff02e1b04552eda7cc098",
+                      "sanitized_sha256":  "f6cbec87236d4bacc79c2b17e6f06850c977ed7aea2258689fdc7cb82a07a823"
+                  },
+                  {
+                      "component":  "tools",
+                      "path":  "tools/src/ai_tools/__init__.py",
+                      "authoritative_sha256":  "38696564819af49726a0bf2e4e110839f921260a8696760381f658eb4eb959ae",
+                      "sanitized_sha256":  "a6c3444ca4626e72e77f5f92f637e6d71692e641d39ac0d6d7c26633ee3bb304"
+                  },
+                  {
+                      "component":  "sandbox",
+                      "path":  "sandbox/src/sandbox_api.py",
+                      "authoritative_sha256":  "eaf8f4c82d93970056fc4dac8c439c7cacbb8401b18445982ee9c8f8985236e1",
+                      "sanitized_sha256":  "2f6bd382bcb3c96e638eb522e82e3a400fb4a2741bd957f2e69950af29451434"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/__init__.py",
+                      "authoritative_sha256":  "3464170dea73300a1149f4ad568c9ca512a7830b4f6ccb799fbee5cedb0c0ff6",
+                      "sanitized_sha256":  "8ffdc15f4eb69fde48e1f13a833c9e64ac66dfeee700eb09b40d5881847144e5"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/audit.py",
+                      "authoritative_sha256":  "5b890ad154598f427be874791be1619b1ac9ecfc1c84190c5e3db4a3c6a99664",
+                      "sanitized_sha256":  "8d452af6a7b950913d86f4e984724f3aa772b1e84054a1c96a015b5ba9eb3ed5"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/builtin_files.py",
+                      "authoritative_sha256":  "0e6314ce8526a85f2967d57f52f3e48ac936d3ed31f94c74ba06daff4f8e1da8",
+                      "sanitized_sha256":  "7dbcddf5c2df867c4727e2380a813a114e6d32720bfc421b922c4740de7bee9c"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/cli.py",
+                      "authoritative_sha256":  "928f147a504ddb5f230c620a964f7bef3875392cef7b61c2c0557e24071e3676",
+                      "sanitized_sha256":  "f58d27712835c40b9aac89db29a58b9a2062e711a1c8910d2e04041e4cb67c2b"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/connector.py",
+                      "authoritative_sha256":  "1039a871560dc91590789752b16b2da317c26ead4386ceaa7d94d17ae6c8b7a6",
+                      "sanitized_sha256":  "d4cf0dae40f8612c1659d1f440b39f16320476453f548e404ac042e31eda34a7"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/consent.py",
+                      "authoritative_sha256":  "0a67c9766bb4ef1d89bdd37347c6f008990030e422089b789c47f13e4ea9c267",
+                      "sanitized_sha256":  "3dec1cfeb7c4ce5ccdf8ea72d3629119133e2b8927070ee6fda83d4d2d2cfd36"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/policy.py",
+                      "authoritative_sha256":  "cc8d37df08f28a6d327f4e363c108c69ef46d7a36d1d23db0d2c79abb72feaef",
+                      "sanitized_sha256":  "b57335bf352f6b4de5d8fde11a4058015cf3d6be2d4ec992ab2ba52975ebf64a"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/protocol.py",
+                      "authoritative_sha256":  "2b47f9e605f5f1f8e8ef9ed1cd817a32340162701991cc7c7755716c89e79017",
+                      "sanitized_sha256":  "1cb6cd2bc748e3d05cace7a86beddeccb647b1dc83d04497e114a6265e36ed48"
+                  },
+                  {
+                      "component":  "local-mcp",
+                      "path":  "clients/local-mcp/r740_local_mcp/secure_store.py",
+                      "authoritative_sha256":  "d553c086972e1a0e2ad2e68f9c11e60d171d8695a0db6d5f9c709d04677107ae",
+                      "sanitized_sha256":  "6e6f40a62046aada0d17626cbf5e1688bf0e342be8bc9a7efaca1688f2745655"
+                  }
+              ]
+}
