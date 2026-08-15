@@ -20,7 +20,7 @@ SECRET_PATTERNS = (
     re.compile(r"\bhf_[A-Za-z0-9]{20,}\b"),
     re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
 )
-IGNORED_PARTS = {"__pycache__", ".pytest_cache"}
+IGNORED_PARTS = {".git", "__pycache__", ".pytest_cache"}
 
 
 def source_files() -> list[Path]:
@@ -50,6 +50,18 @@ def main() -> None:
     assert not (ROOT / "config/runtime.env").exists()
     gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
     assert "config/runtime.env" in gitignore and "secrets/*" in gitignore
+
+    assert (ROOT / "COPYING").is_file()
+    assert (ROOT / "COPYING.LESSER").is_file()
+    assert "LGPL-3.0-or-later" in (ROOT / "LICENSE").read_text(encoding="utf-8")
+    for path in files:
+        if path.name in {"COPYING", "COPYING.LESSER"}:
+            continue
+        try:
+            text = path.read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            continue
+        assert "LGPL-3.0-only" not in text, f"stale license policy in {path}"
 
     catalog = json.loads((ROOT / "model-manifests/catalog.json").read_text())
     for model in catalog["models"]:
