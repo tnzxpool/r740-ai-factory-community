@@ -26,6 +26,7 @@ jobs:
         run: |
           python tests/source_import_test.py
           python tests/sbom_test.py
+          python tests/portal_installer_test.py
           SOURCE_DATE_EPOCH=0 python scripts/generate-sbom.py --output dist/source-sbom.spdx.json
       - name: Shell syntax
         run: bash -n scripts/first-run.sh scripts/install-systemd.sh scripts/doctor.sh scripts/uninstall-systemd.sh

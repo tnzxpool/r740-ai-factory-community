@@ -67,6 +67,17 @@ The installer places code under `/opt/r740-ai-factory`, configuration and the
 admin token under `/etc/r740-ai-factory`, and mutable state under
 `/var/lib/r740-ai-factory`. It does not install CUDA, drivers, Docker or models.
 
+Install the full portal as a separate, loopback-only systemd service with:
+
+```sh
+sudo ./scripts/install-portal-systemd.sh
+sudo systemctl enable --now r740-ai-portal
+```
+
+The installer creates an isolated Python environment, generates the setup token
+locally and leaves the service stopped until the operator enables it. Set
+`R740_WHEELHOUSE=/path/to/wheels` to force an offline dependency install.
+
 Diagnose or remove the native installation with:
 
 ```sh

@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
+[Unit]
+Description=R740 AI Factory Community portal
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_USER@
+Environment=PYTHONPATH=@INSTALL_DIR@/components/portal/src
+EnvironmentFile=@CONFIG_DIR@/portal.env
+WorkingDirectory=@STATE_DIR@
+ExecStart=@VENV_DIR@/bin/python -m uvicorn r740_portal.portal:app --host 127.0.0.1 --port @PORT@
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=@STATE_DIR@
+ReadOnlyPaths=@CONFIG_DIR@ @INSTALL_DIR@
+CapabilityBoundingSet=
+LockPersonality=true
+MemoryDenyWriteExecute=true
+
+[Install]
+WantedBy=multi-user.target
