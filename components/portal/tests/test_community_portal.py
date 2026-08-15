@@ -100,6 +100,29 @@ print("PASS_OPT_IN")
     assert password not in result.stdout + result.stderr
 
 
+def test_setup_token_file_is_hashed_without_exposing_value(tmp_path: Path) -> None:
+    token = secrets.token_urlsafe(48)
+    token_file = tmp_path / "setup-token"
+    token_file.write_text(token + "\n", encoding="utf-8")
+    code = r'''
+import hashlib
+import os
+from r740_portal import community_config
+token = open(os.environ["AI_SETUP_TOKEN_FILE"], encoding="utf-8").read().strip()
+assert community_config.SETUP_TOKEN_HASH == hashlib.sha256(token.encode()).hexdigest()
+assert token not in repr(vars(community_config))
+print("PASS_SETUP_FILE")
+'''
+    result = run_probe(code, {
+        "AI_SETUP_TOKEN_FILE": str(token_file),
+        "AI_SETUP_TOKEN_HASH": "",
+        "AI_PORTAL_DB": str(tmp_path / "setup.db"),
+    })
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip().endswith("PASS_SETUP_FILE")
+    assert token not in result.stdout + result.stderr
+
+
 def test_configuration_rejects_wildcard_host(tmp_path: Path) -> None:
     result = run_probe("import r740_portal.community_config", {
         "AI_PORTAL_DB": str(tmp_path / "invalid.db"),

@@ -62,7 +62,41 @@ services:
               count: 1
               capabilities: [gpu]
 
+  portal:
+    profiles: ["portal"]
+    build:
+      context: ./components/portal
+    restart: unless-stopped
+    env_file:
+      - ./config/portal.env
+    environment:
+      AI_PORTAL_DB: /var/lib/r740-ai-portal/portal.db
+      AI_ALLOWED_HOSTS: localhost,127.0.0.1
+      AI_ADMIN_NETWORK: 172.16.0.0/12
+      AI_SETUP_TOKEN_FILE: /run/secrets/setup_token
+      AI_CORE_URL: ""
+    secrets:
+      - setup_token
+    volumes:
+      - portal-data:/var/lib/r740-ai-portal
+    ports:
+      - "127.0.0.1:${R740_PORTAL_PORT:-8081}:8081"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8081/health', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
 secrets:
   admin_token:
     file: ./secrets/admin_token
+  setup_token:
+    file: ./secrets/setup_token
 
+volumes:
+  portal-data:

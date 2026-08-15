@@ -37,6 +37,19 @@ Open `http://localhost:8080`. Use exactly one profile at a time:
 docker compose --profile nvidia up --build
 ```
 
+To exercise the full portal UI without a model backend:
+
+```sh
+./scripts/first-run.sh
+docker compose --profile portal up --build
+```
+
+Open `http://localhost:8081`. The one-time administrator setup token is created
+locally in `secrets/setup_token`; inspect it only on the installation host when
+the setup page asks for it. The portal starts with inference, parser, tools,
+sandbox and demo access disabled, so unavailable operations fail closed rather
+than reaching external services.
+
 The generated admin token remains in `secrets/admin_token`; it is mounted as a
 file and is never placed in the image or Compose file. To connect inference,
 edit `config/runtime.env` and set `R740_INFERENCE_BASE_URL` to a trusted backend.

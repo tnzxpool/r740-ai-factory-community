@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import ipaddress
+import hashlib
 import os
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -86,7 +87,23 @@ PARSER_KEY_FILE = Path(os.getenv("AI_PARSER_KEY_FILE", str(APP_DIR / "secrets" /
 LOCAL_MCP_POLICY_KEY_FILE = Path(os.getenv(
     "AI_LOCAL_MCP_POLICY_KEY_FILE", str(APP_DIR / "secrets" / "local-mcp-policy-signing.key")
 ))
-SETUP_TOKEN_HASH = os.getenv("AI_SETUP_TOKEN_HASH", "").strip()
+def setup_token_hash() -> str:
+    token_file = os.getenv("AI_SETUP_TOKEN_FILE", "").strip()
+    if token_file:
+        path = Path(token_file)
+        if not path.is_file():
+            raise RuntimeError("AI_SETUP_TOKEN_FILE does not reference a regular file")
+        token = path.read_text(encoding="utf-8").strip()
+        if len(token) < 32:
+            raise RuntimeError("AI_SETUP_TOKEN_FILE is too short")
+        return hashlib.sha256(token.encode("utf-8")).hexdigest()
+    value = os.getenv("AI_SETUP_TOKEN_HASH", "").strip()
+    if value and (len(value) != 64 or any(character not in "0123456789abcdef" for character in value.lower())):
+        raise RuntimeError("AI_SETUP_TOKEN_HASH must be a SHA-256 hex digest")
+    return value.lower()
+
+
+SETUP_TOKEN_HASH = setup_token_hash()
 CORE_KEY = secret_value("AI_PORTAL_CORE_KEY", "AI_PORTAL_CORE_KEY_FILE")
 TOOLS_TOKEN = secret_value("AI_TOOLS_TOKEN", "AI_TOOLS_TOKEN_FILE")
 SANDBOX_TOKEN = secret_value("AI_SANDBOX_TOKEN", "AI_SANDBOX_TOKEN_FILE")
@@ -102,4 +119,3 @@ DEMO_GUEST_USERNAME = os.getenv("AI_DEMO_GUEST_USERNAME", "guest").strip() or "g
 DEMO_GUEST_PASSWORD_FILE = Path(os.getenv(
     "AI_DEMO_GUEST_PASSWORD_FILE", str(APP_DIR / "secrets" / "demo-guest-password")
 ))
-

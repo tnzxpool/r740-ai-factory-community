@@ -88,7 +88,7 @@
                       },
                       {
                           "candidate":  "runtime.env.example",
-                          "candidate_sha256":  "3bef1fd778bc5c16b0b955361ec2d8e321604b46eadb5d20c1c74fb053df5c61"
+                          "candidate_sha256":  "9dc1a37dc1ea6339e0e7b73625674a0392ea9400ff09b318b808c100590dde4d"
                       },
                       {
                           "candidate":  "scripts/extract_initial_schema.py",
@@ -104,7 +104,7 @@
                       },
                       {
                           "candidate":  "src/r740_portal/community_config.py",
-                          "candidate_sha256":  "e249c36dcbde115dd2bdc7ceb012a885f413b1072c7be7995533a00fb06769fe"
+                          "candidate_sha256":  "2230e44fb009d3d6f32d6331c220708afc9ac62abc6b0fa00588fee95197f50f"
                       },
                       {
                           "candidate":  "tests/secret_scan.py",
@@ -112,11 +112,15 @@
                       },
                       {
                           "candidate":  "tests/test_community_portal.py",
-                          "candidate_sha256":  "04dba63b492bcca6f141f9a8c529b1abad4366591d2b13049bf28107abb7e358"
+                          "candidate_sha256":  "266dfb445b2c23dfd904abb445965f9cfc2fd70fe03016cc3fa20e3623ab24b6"
                       },
                       {
                           "candidate":  "tests/test_portal_contracts.py",
                           "candidate_sha256":  "fcf5ed4185fcb579e561b2ff5a7c34aac1f9cb7e9c6d8124fe5465aba3d5b3ec"
+                      },
+                      {
+                          "candidate":  "Dockerfile",
+                          "candidate_sha256":  "3cd2d7e7667f627fc71ef2c53776f7b279e46b9e1dc27b3ac601f273073f8b96"
                       }
                   ],
     "gaps":  [
