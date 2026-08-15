@@ -61,6 +61,10 @@
         {
           "alg": "SHA-256",
           "content": "f53e442b08449d42821fa4a4fba000095af9f62742a500f978a9f557ec44339a"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "42f6930c31dc7f50732c9ae793c2786c7b6b044195967bbdde40bb9be81c4cc0"
         }
       ],
       "licenses": [
@@ -651,6 +655,10 @@
         {
           "alg": "SHA-256",
           "content": "b436f6ec4fc3a6b4237c84d3f83170ed2b40bb584222f0ac47a0c8a5921980c7"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "7421fad442de870a8cbf2287d1cad7e706ece0dbfeba5e911df132cbdc1cb56a"
         }
       ],
       "licenses": [

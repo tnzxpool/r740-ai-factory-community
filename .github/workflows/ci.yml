@@ -88,12 +88,12 @@ jobs:
         run: python -m pip install -r components/core/requirements.txt -r components/portal/requirements-test.txt
       - name: Core invariants and real POSIX lock
         env:
-          PYTHONPATH: components/core/src
+          PYTHONPATH: src
         working-directory: components/core
         run: python -m unittest discover -s tests
       - name: Portal contracts and fail-closed configuration
         env:
-          PYTHONPATH: components/portal/src
+          PYTHONPATH: src
         working-directory: components/portal
         run: python -m pytest -q
 
