@@ -16,3 +16,15 @@ Raw production exports remain outside this Git repository and must never be
 committed. The provenance hash demonstrates the source used for the rewrite
 without publishing private deployment configuration.
 
+Before sanitization, verify selected private inputs without copying or logging
+their paths:
+
+```sh
+python3 scripts/verify-source-import.py \
+  --source core/adapters.py=/private/staging/adapters.py \
+  --source portal/index.html=/private/staging/index.html --json
+```
+
+Use `--require-all` only when the complete private staging tree is available.
+The JSON report contains component identifiers and validation results, never
+input paths or file contents.
