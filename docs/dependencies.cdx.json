@@ -1,0 +1,688 @@
+{
+  "bomFormat": "CycloneDX",
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/accelerate@1.10.1",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/huggingface/accelerate"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ],
+      "name": "accelerate",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements-graphics.txt"
+        }
+      ],
+      "purl": "pkg:pypi/accelerate@1.10.1",
+      "type": "library",
+      "version": "1.10.1"
+    },
+    {
+      "bom-ref": "pkg:pypi/argon2-cffi@25.1.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/hynek/argon2-cffi"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "argon2-cffi",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/argon2-cffi@25.1.0",
+      "type": "library",
+      "version": "25.1.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/cffi@2.1.1",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://foss.heptapod.net/pypy/cffi"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f53e442b08449d42821fa4a4fba000095af9f62742a500f978a9f557ec44339a"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "cffi",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "clients/local-mcp/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/cffi@2.1.1",
+      "type": "library",
+      "version": "2.1.1"
+    },
+    {
+      "bom-ref": "pkg:pypi/cryptography@49.0.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/pyca/cryptography"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "e5dfc1e64de5677cec922ffa8da89c546d0415bf6efdf081842e5d44c84e1f0e"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0 OR BSD-3-Clause"
+        }
+      ],
+      "name": "cryptography",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "clients/local-mcp/requirements.lock"
+        },
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/cryptography@49.0.0",
+      "type": "library",
+      "version": "49.0.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/diffusers@0.39.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/huggingface/diffusers"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ],
+      "name": "diffusers",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements-graphics.txt"
+        }
+      ],
+      "purl": "pkg:pypi/diffusers@0.39.0",
+      "type": "library",
+      "version": "0.39.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/fastapi@0.116.1",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/fastapi/fastapi"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "fastapi",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements.txt"
+        },
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/fastapi@0.116.1",
+      "type": "library",
+      "version": "0.116.1"
+    },
+    {
+      "bom-ref": "pkg:pypi/fastapi@0.128.8",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/fastapi/fastapi"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "fastapi",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "services/tools/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/fastapi@0.128.8",
+      "type": "library",
+      "version": "0.128.8"
+    },
+    {
+      "bom-ref": "pkg:pypi/fastapi@0.92.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/fastapi/fastapi"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "fastapi",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "services/sandbox/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/fastapi@0.92.0",
+      "type": "library",
+      "version": "0.92.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/httpx@0.28.1",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/encode/httpx"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "httpx",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements.txt"
+        },
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        },
+        {
+          "name": "r740:declared-in",
+          "value": "services/tools/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/httpx@0.28.1",
+      "type": "library",
+      "version": "0.28.1"
+    },
+    {
+      "bom-ref": "pkg:pypi/pillow@11.3.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/python-pillow/Pillow"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT-CMU"
+        }
+      ],
+      "name": "pillow",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/pillow@11.3.0",
+      "type": "library",
+      "version": "11.3.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/pycparser@3.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/eliben/pycparser"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "pycparser",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "clients/local-mcp/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/pycparser@3.0",
+      "type": "library",
+      "version": "3.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/pydantic@1.10.4",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/pydantic/pydantic"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "pydantic",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "services/sandbox/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/pydantic@1.10.4",
+      "type": "library",
+      "version": "1.10.4"
+    },
+    {
+      "bom-ref": "pkg:pypi/pydantic@2.11.7",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/pydantic/pydantic"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "pydantic",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/pydantic@2.11.7",
+      "type": "library",
+      "version": "2.11.7"
+    },
+    {
+      "bom-ref": "pkg:pypi/pydantic@2.13.4",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/pydantic/pydantic"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "pydantic",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "services/tools/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/pydantic@2.13.4",
+      "type": "library",
+      "version": "2.13.4"
+    },
+    {
+      "bom-ref": "pkg:pypi/pypdf@6.0.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/py-pdf/pypdf"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "pypdf",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/pypdf@6.0.0",
+      "type": "library",
+      "version": "6.0.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/pytesseract@0.3.13",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/madmaze/pytesseract"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ],
+      "name": "pytesseract",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/pytesseract@0.3.13",
+      "type": "library",
+      "version": "0.3.13"
+    },
+    {
+      "bom-ref": "pkg:pypi/pytest@8.4.2",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/pytest-dev/pytest"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "MIT"
+        }
+      ],
+      "name": "pytest",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements-test.txt"
+        }
+      ],
+      "purl": "pkg:pypi/pytest@8.4.2",
+      "type": "library",
+      "version": "8.4.2"
+    },
+    {
+      "bom-ref": "pkg:pypi/python-multipart@0.0.20",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/Kludex/python-multipart"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ],
+      "name": "python-multipart",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/python-multipart@0.0.20",
+      "type": "library",
+      "version": "0.0.20"
+    },
+    {
+      "bom-ref": "pkg:pypi/safetensors@0.8.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/huggingface/safetensors"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ],
+      "name": "safetensors",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements-graphics.txt"
+        }
+      ],
+      "purl": "pkg:pypi/safetensors@0.8.0",
+      "type": "library",
+      "version": "0.8.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/starlette@0.47.3",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/encode/starlette"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "starlette",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/starlette@0.47.3",
+      "type": "library",
+      "version": "0.47.3"
+    },
+    {
+      "bom-ref": "pkg:pypi/torch@2.7.1+cu118",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/pytorch/pytorch"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "torch",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements-graphics.txt"
+        }
+      ],
+      "purl": "pkg:pypi/torch@2.7.1+cu118",
+      "type": "library",
+      "version": "2.7.1+cu118"
+    },
+    {
+      "bom-ref": "pkg:pypi/transformers@4.55.2",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/huggingface/transformers"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "Apache-2.0"
+        }
+      ],
+      "name": "transformers",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements-graphics.txt"
+        }
+      ],
+      "purl": "pkg:pypi/transformers@4.55.2",
+      "type": "library",
+      "version": "4.55.2"
+    },
+    {
+      "bom-ref": "pkg:pypi/uvicorn@0.17.6",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/encode/uvicorn"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "uvicorn",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "services/sandbox/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/uvicorn@0.17.6",
+      "type": "library",
+      "version": "0.17.6"
+    },
+    {
+      "bom-ref": "pkg:pypi/uvicorn@0.35.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/encode/uvicorn"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "uvicorn",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "components/core/requirements.txt"
+        },
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/uvicorn@0.35.0",
+      "type": "library",
+      "version": "0.35.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/uvicorn@0.51.0",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/encode/uvicorn"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "uvicorn",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "services/tools/requirements.lock"
+        }
+      ],
+      "purl": "pkg:pypi/uvicorn@0.51.0",
+      "type": "library",
+      "version": "0.51.0"
+    },
+    {
+      "bom-ref": "pkg:pypi/websockets@16.1.1",
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/python-websockets/websockets"
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b436f6ec4fc3a6b4237c84d3f83170ed2b40bb584222f0ac47a0c8a5921980c7"
+        }
+      ],
+      "licenses": [
+        {
+          "expression": "BSD-3-Clause"
+        }
+      ],
+      "name": "websockets",
+      "properties": [
+        {
+          "name": "r740:declared-in",
+          "value": "clients/local-mcp/requirements.lock"
+        },
+        {
+          "name": "r740:declared-in",
+          "value": "components/portal/requirements.txt"
+        }
+      ],
+      "purl": "pkg:pypi/websockets@16.1.1",
+      "type": "library",
+      "version": "16.1.1"
+    }
+  ],
+  "metadata": {
+    "component": {
+      "name": "r740-ai-factory-community",
+      "type": "application",
+      "version": "0.1.0"
+    },
+    "timestamp": "1970-01-01T00:00:00Z"
+  },
+  "serialNumber": "urn:uuid:00000000-0000-4000-8000-000000000740",
+  "specVersion": "1.6",
+  "version": 1
+}

@@ -1,0 +1,22 @@
+{
+  "accelerate": {"license": "Apache-2.0", "source": "https://github.com/huggingface/accelerate"},
+  "argon2-cffi": {"license": "MIT", "source": "https://github.com/hynek/argon2-cffi"},
+  "cffi": {"license": "MIT", "source": "https://foss.heptapod.net/pypy/cffi"},
+  "cryptography": {"license": "Apache-2.0 OR BSD-3-Clause", "source": "https://github.com/pyca/cryptography"},
+  "diffusers": {"license": "Apache-2.0", "source": "https://github.com/huggingface/diffusers"},
+  "fastapi": {"license": "MIT", "source": "https://github.com/fastapi/fastapi"},
+  "httpx": {"license": "BSD-3-Clause", "source": "https://github.com/encode/httpx"},
+  "pillow": {"license": "MIT-CMU", "source": "https://github.com/python-pillow/Pillow"},
+  "pycparser": {"license": "BSD-3-Clause", "source": "https://github.com/eliben/pycparser"},
+  "pydantic": {"license": "MIT", "source": "https://github.com/pydantic/pydantic"},
+  "pypdf": {"license": "BSD-3-Clause", "source": "https://github.com/py-pdf/pypdf"},
+  "pytest": {"license": "MIT", "source": "https://github.com/pytest-dev/pytest"},
+  "pytesseract": {"license": "Apache-2.0", "source": "https://github.com/madmaze/pytesseract"},
+  "python-multipart": {"license": "Apache-2.0", "source": "https://github.com/Kludex/python-multipart"},
+  "safetensors": {"license": "Apache-2.0", "source": "https://github.com/huggingface/safetensors"},
+  "starlette": {"license": "BSD-3-Clause", "source": "https://github.com/encode/starlette"},
+  "torch": {"license": "BSD-3-Clause", "source": "https://github.com/pytorch/pytorch"},
+  "transformers": {"license": "Apache-2.0", "source": "https://github.com/huggingface/transformers"},
+  "uvicorn": {"license": "BSD-3-Clause", "source": "https://github.com/encode/uvicorn"},
+  "websockets": {"license": "BSD-3-Clause", "source": "https://github.com/python-websockets/websockets"}
+}
