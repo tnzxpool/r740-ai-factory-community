@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
+# Deterministic provenance manifests must compare identically on Windows and Linux.
+components/core/SOURCE-MANIFEST.json text eol=lf
+components/portal/SOURCE_MANIFEST.json text eol=lf
+docs/SERVICES_PROVENANCE.json text eol=lf
+docs/SOURCE_PROVENANCE.json text eol=lf
+
+# Shell entry points must remain executable with Unix line endings.
+*.sh text eol=lf
