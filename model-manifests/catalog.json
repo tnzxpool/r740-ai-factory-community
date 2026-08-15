@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "models": [
+    {
+      "id": "example-general-gguf",
+      "display_name": "Example general GGUF model",
+      "kind": "chat",
+      "backend": "llama.cpp",
+      "enabled": false,
+      "upstream_repo": null,
+      "revision": null,
+      "artifact": null,
+      "sha256": null,
+      "license": null,
+      "minimum_ram_gib": null,
+      "minimum_vram_gib": null,
+      "notes": "Complete all provenance fields before enabling."
+    },
+    {
+      "id": "example-image-pipeline",
+      "display_name": "Example image pipeline",
+      "kind": "image",
+      "backend": "diffusers",
+      "enabled": false,
+      "upstream_repo": null,
+      "revision": null,
+      "artifact": null,
+      "sha256": null,
+      "license": null,
+      "minimum_ram_gib": null,
+      "minimum_vram_gib": null,
+      "notes": "Image runtimes use a separate adapter; no weights are bundled."
+    }
+  ]
+}
+

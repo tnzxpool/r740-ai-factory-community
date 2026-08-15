@@ -1,0 +1,68 @@
+name: r740-ai-factory
+
+x-common: &common
+  build:
+    context: .
+  restart: unless-stopped
+  env_file:
+    - ./config/runtime.env
+  environment:
+    R740_BIND: 0.0.0.0
+    R740_PORT: "8080"
+    R740_DATA_DIR: /var/lib/r740-ai-factory
+    R740_MODEL_CATALOG: /opt/r740-ai-factory/model-manifests/catalog.json
+    R740_ADMIN_TOKEN_FILE: /run/secrets/admin_token
+  secrets:
+    - admin_token
+  volumes:
+    - ./data:/var/lib/r740-ai-factory
+    - ./models:/models:ro
+  ports:
+    - "${R740_HTTP_PORT:-8080}:8080"
+  healthcheck:
+    test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=3)"]
+    interval: 15s
+    timeout: 5s
+    retries: 5
+    start_period: 10s
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+services:
+  factory-cpu:
+    <<: *common
+    profiles: ["cpu"]
+    environment:
+      R740_BIND: 0.0.0.0
+      R740_PORT: "8080"
+      R740_DATA_DIR: /var/lib/r740-ai-factory
+      R740_MODEL_CATALOG: /opt/r740-ai-factory/model-manifests/catalog.json
+      R740_ADMIN_TOKEN_FILE: /run/secrets/admin_token
+      R740_HARDWARE_PROFILE: cpu
+
+  factory-nvidia:
+    <<: *common
+    profiles: ["nvidia"]
+    environment:
+      R740_BIND: 0.0.0.0
+      R740_PORT: "8080"
+      R740_DATA_DIR: /var/lib/r740-ai-factory
+      R740_MODEL_CATALOG: /opt/r740-ai-factory/model-manifests/catalog.json
+      R740_ADMIN_TOKEN_FILE: /run/secrets/admin_token
+      R740_HARDWARE_PROFILE: nvidia
+      NVIDIA_VISIBLE_DEVICES: "${NVIDIA_VISIBLE_DEVICES:-all}"
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+secrets:
+  admin_token:
+    file: ./secrets/admin_token
+

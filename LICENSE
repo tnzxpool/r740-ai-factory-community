@@ -1,0 +1,14 @@
+R740 AI Factory Community Edition
+Copyright (C) 2026 R740 AI Factory contributors
+
+This repository is licensed under the GNU Lesser General Public License,
+version 3 or (at your option) any later version:
+
+    SPDX-License-Identifier: LGPL-3.0-or-later
+
+The complete GNU GPLv3 terms incorporated by the LGPL are in `COPYING`; the
+LGPLv3 additional permissions are in `COPYING.LESSER`.
+
+This license covers only original project code. Third-party software and model
+weights retain their own licenses. Model weights are not included.
+

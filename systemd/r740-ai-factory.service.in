@@ -1,0 +1,28 @@
+[Unit]
+Description=R740 AI Factory Community control plane
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_USER@
+Environment=PYTHONPATH=@INSTALL_DIR@/src
+EnvironmentFile=@CONFIG_DIR@/runtime.env
+WorkingDirectory=@INSTALL_DIR@
+ExecStart=/usr/bin/python3 -m r740_factory.app
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=@STATE_DIR@
+ReadOnlyPaths=@CONFIG_DIR@
+CapabilityBoundingSet=
+LockPersonality=true
+MemoryDenyWriteExecute=true
+
+[Install]
+WantedBy=multi-user.target
+

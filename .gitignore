@@ -1,0 +1,11 @@
+.env
+config/runtime.env
+secrets/*
+!secrets/.gitkeep
+data/*
+!data/.gitkeep
+models/*
+!models/.gitkeep
+__pycache__/
+*.py[cod]
+

@@ -1,0 +1,9 @@
+.git
+.env
+config/runtime.env
+secrets
+data
+models
+__pycache__
+*.py[cod]
+
