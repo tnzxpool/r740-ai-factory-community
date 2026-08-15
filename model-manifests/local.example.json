@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "model_id": "example-local-model",
+  "unit_slug": "example",
+  "service_user": "r740-ai",
+  "port": 41140,
+  "runtime": "/usr/local/libexec/r740/llama-server",
+  "runtime_size": 0,
+  "runtime_sha256": "replace-with-64-hex-characters-before-use",
+  "model": "/var/lib/r740-ai-factory/models/example.gguf",
+  "model_size": 0,
+  "model_sha256": "replace-with-64-hex-characters-before-use",
+  "ctx_size": 8192,
+  "gpu_layers": 99,
+  "parallel": 1,
+  "jinja": true,
+  "reasoning": "off",
+  "flash_attn": "off",
+  "fit": "off",
+  "spec_type": "none"
+}

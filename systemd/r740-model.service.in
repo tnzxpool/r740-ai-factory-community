@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: LGPL-3.0-or-later
+[Unit]
+Description=R740 local model @MODEL_ID@
+After=network-online.target
+Wants=network-online.target
+Conflicts=@CONFLICTS@
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+Group=@SERVICE_USER@
+ExecStart=@EXEC_START@
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=480
+TimeoutStopSec=45
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadOnlyPaths=@RUNTIME@ @MODEL@ @MMPROJ_READONLY@
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

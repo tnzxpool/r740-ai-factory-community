@@ -10,6 +10,7 @@ python3 tests/source_import_test.py
 python3 tests/sbom_test.py
 python3 tests/portal_installer_test.py
 python3 tests/core_installer_test.py
+python3 tests/model_unit_renderer_test.py
 python3 tests/smoke_test.py
 python3 -m compileall -q src scripts tests
 
