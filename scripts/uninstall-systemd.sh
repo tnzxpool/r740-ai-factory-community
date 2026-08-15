@@ -1,0 +1,49 @@
+#!/bin/sh
+# SPDX-License-Identifier: LGPL-3.0-or-later
+set -eu
+
+if [ "$(id -u)" -ne 0 ]; then
+  printf '%s\n' "Run this uninstaller as root." >&2
+  exit 1
+fi
+
+if [ "${1:-}" != "--yes" ]; then
+  printf '%s\n' "Usage: sudo $0 --yes [--purge-data]" >&2
+  printf '%s\n' "Configuration and state are preserved unless --purge-data is given." >&2
+  exit 2
+fi
+
+INSTALL_DIR=${R740_INSTALL_DIR:-/opt/r740-ai-factory}
+CONFIG_DIR=${R740_CONFIG_DIR:-/etc/r740-ai-factory}
+STATE_DIR=${R740_STATE_DIR:-/var/lib/r740-ai-factory}
+PURGE=${2:-}
+
+case "$INSTALL_DIR" in /opt/r740-ai-factory|/opt/r740-ai-factory/*) ;; *)
+  printf 'Refusing unsafe install path: %s\n' "$INSTALL_DIR" >&2; exit 3;;
+esac
+case "$CONFIG_DIR" in /etc/r740-ai-factory|/etc/r740-ai-factory/*) ;; *)
+  printf 'Refusing unsafe config path: %s\n' "$CONFIG_DIR" >&2; exit 3;;
+esac
+case "$STATE_DIR" in /var/lib/r740-ai-factory|/var/lib/r740-ai-factory/*) ;; *)
+  printf 'Refusing unsafe state path: %s\n' "$STATE_DIR" >&2; exit 3;;
+esac
+
+systemctl disable --now r740-ai-factory.service 2>/dev/null || true
+rm -f /etc/systemd/system/r740-ai-factory.service
+systemctl daemon-reload
+
+if [ -d "$INSTALL_DIR" ]; then
+  find "$INSTALL_DIR" -depth -delete
+fi
+
+if [ "$PURGE" = "--purge-data" ]; then
+  printf '%s\n' "Purging installation-specific configuration and state."
+  [ ! -d "$CONFIG_DIR" ] || find "$CONFIG_DIR" -depth -delete
+  [ ! -d "$STATE_DIR" ] || find "$STATE_DIR" -depth -delete
+else
+  printf 'Preserved configuration: %s\n' "$CONFIG_DIR"
+  printf 'Preserved state: %s\n' "$STATE_DIR"
+fi
+
+printf '%s\n' "R740 AI Factory service removed."
+

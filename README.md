@@ -54,6 +54,16 @@ The installer places code under `/opt/r740-ai-factory`, configuration and the
 admin token under `/etc/r740-ai-factory`, and mutable state under
 `/var/lib/r740-ai-factory`. It does not install CUDA, drivers, Docker or models.
 
+Diagnose or remove the native installation with:
+
+```sh
+sudo ./scripts/doctor.sh
+sudo ./scripts/uninstall-systemd.sh --yes
+```
+
+Uninstall preserves configuration and state. Add `--purge-data` only when those
+installation-specific directories should be deleted permanently.
+
 ## Validation
 
 ```sh

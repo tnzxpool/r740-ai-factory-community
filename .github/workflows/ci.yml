@@ -23,7 +23,7 @@ jobs:
       - name: Smoke test
         run: python tests/smoke_test.py
       - name: Shell syntax
-        run: bash -n scripts/first-run.sh scripts/install-systemd.sh
+        run: bash -n scripts/first-run.sh scripts/install-systemd.sh scripts/doctor.sh scripts/uninstall-systemd.sh
       - name: Build package
         run: python -m pip wheel --no-deps --wheel-dir dist .
 
@@ -37,4 +37,3 @@ jobs:
         run: docker compose --profile cpu config --quiet
       - name: Build CPU image
         run: docker compose --profile cpu build
-
