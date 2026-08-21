@@ -8,6 +8,21 @@ local `llama.cpp` server, including CUDA builds for Tesla P40 (compute 6.1).
 No production password, host address, certificate, database or model weight is
 stored in this repository.
 
+## Quick-start links
+
+Start with the installation guide, then keep the troubleshooting and operations
+guides available while configuring a backend or a local model:
+
+- **[Install and run the first chat](https://github.com/tnzxpool/r740-ai-factory-community/blob/main/docs/INSTALL.md)**
+- [Troubleshooting](https://github.com/tnzxpool/r740-ai-factory-community/blob/main/docs/TROUBLESHOOTING.md)
+- [Operations, upgrade and rollback](https://github.com/tnzxpool/r740-ai-factory-community/blob/main/docs/OPERATIONS.md)
+- [Architecture and supported scope](https://github.com/tnzxpool/r740-ai-factory-community/blob/main/docs/ARCHITECTURE.md)
+- [Download the latest release](https://github.com/tnzxpool/r740-ai-factory-community/releases/latest)
+
+For the shortest local preview, follow **Five-minute local start** below. For a
+Tesla P40 or another NVIDIA GPU, follow the complete installation guide before
+registering a GGUF model.
+
 ## Choose one supported path
 
 | Goal | Path | Result |
