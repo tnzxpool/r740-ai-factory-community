@@ -82,6 +82,10 @@ def main() -> None:
                         raise AssertionError("server did not become ready")
                     time.sleep(0.05)
             assert status == 200 and health["status"] == "ok"
+            with urllib.request.urlopen(base + "/app.js", timeout=3) as response:
+                assert response.status == 200
+                assert response.headers.get("Content-Type", "").startswith(("text/javascript", "application/javascript"))
+                assert b"/api/v1/chat/completions" in response.read()
             status, hardware = request(base + "/api/v1/hardware")
             assert status == 200 and hardware["active_profile"] == "cpu"
             status, models = request(base + "/api/v1/models")

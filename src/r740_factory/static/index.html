@@ -6,26 +6,59 @@
   <title>R740 AI Factory Community</title>
   <style>
     :root { color-scheme: dark; font-family: system-ui, sans-serif; }
-    body { margin: 0; background: #111827; color: #e5e7eb; }
-    main { max-width: 760px; margin: 8vh auto; padding: 24px; }
-    section { background: #1f2937; padding: 18px; border-radius: 10px; margin: 14px 0; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0b1020; color: #e5e7eb; }
+    main { max-width: 900px; margin: 0 auto; padding: 22px; min-height: 100vh; display: grid; gap: 14px; grid-template-rows: auto auto 1fr auto; }
+    header, section { background: #151d31; border: 1px solid #2b3650; border-radius: 12px; padding: 14px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    h1, p { margin: 0; }
+    h1 { font-size: 1.2rem; }
+    .status { font-size: .9rem; color: #fbbf24; }
+    .status.ok { color: #34d399; }
+    .status.bad { color: #f87171; }
+    .settings { display: grid; grid-template-columns: 1fr 1fr auto auto; gap: 8px; align-items: end; }
+    label { display: grid; gap: 5px; color: #cbd5e1; font-size: .82rem; }
+    input, textarea, button { font: inherit; border-radius: 8px; border: 1px solid #475569; }
+    input, textarea { background: #0f172a; color: #f8fafc; padding: 9px; }
+    button { background: #2563eb; color: white; padding: 9px 14px; cursor: pointer; font-weight: 650; }
+    button:disabled { opacity: .55; cursor: wait; }
+    #messages { overflow: auto; min-height: 260px; max-height: 55vh; display: grid; align-content: start; gap: 8px; }
+    .message { white-space: pre-wrap; line-height: 1.45; background: #0f172a; border-radius: 9px; padding: 10px 12px; }
+    .message.user { border-left: 3px solid #60a5fa; }
+    .message.assistant { border-left: 3px solid #34d399; }
+    .message.error { border-left: 3px solid #f87171; color: #fecaca; }
+    form { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+    textarea { min-height: 70px; resize: vertical; }
+    small { color: #94a3b8; }
     code { color: #fbbf24; }
-    .ok { color: #34d399; }
+    @media (max-width: 700px) { .settings, form { grid-template-columns: 1fr; } main { padding: 10px; } }
   </style>
 </head>
 <body>
   <main>
-    <h1>R740 AI Factory Community</h1>
-    <section>
-      <strong class="ok">Control plane installed</strong>
-      <p>This portable skeleton exposes health, hardware and model-catalog APIs.</p>
+    <header>
+      <div><h1>R740 AI Factory Community</h1><small>Portable OpenAI-compatible client</small></div>
+      <span id="status" class="status">Checking…</span>
+    </header>
+    <section class="settings">
+      <label>Administrator token
+        <input id="token" type="password" autocomplete="off" placeholder="Read it from secrets/admin_token">
+      </label>
+      <label>Model name (optional)
+        <input id="model" value="local-model" autocomplete="off">
+      </label>
+      <button id="save" type="button">Use for this tab</button>
+      <button id="reset" type="button">New chat</button>
+      <small style="grid-column:1/-1">The token stays in this browser tab only (sessionStorage); it is never embedded in the repository.</small>
     </section>
-    <section>
-      <h2>Inference</h2>
-      <p>Connect a trusted OpenAI-compatible backend through
-      <code>R740_INFERENCE_BASE_URL</code>. No weights are bundled or downloaded.</p>
+    <section id="messages" aria-live="polite">
+      <div class="message assistant">Ready. Configure <code>R740_INFERENCE_BASE_URL</code> or register a local llama.cpp model, then enter the local administrator token above.</div>
     </section>
+    <form id="chat">
+      <textarea id="prompt" required placeholder="Write a message…"></textarea>
+      <button id="send" type="submit">Send</button>
+    </form>
   </main>
+  <script src="/app.js" defer></script>
 </body>
 </html>
-

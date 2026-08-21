@@ -8,7 +8,7 @@
                         "source":  "private-authoritative-source",
                         "source_sha256":  "fb02a66a069b1a14cf18dfb1ac84b3bf3af0c11b97b2b823883cecf32076aa34",
                         "candidate":  "src/r740_portal/portal.py",
-                        "candidate_sha256":  "8037c0bb5994295e2e53155557e6972d516da02c463e1322d8c61cf67f4d6fc8",
+                        "candidate_sha256":  "95ab5a1fdca44ef64f1e1661b502d435877922ee784bc21e1b2cb4f1092ba4f8",
                         "transformation":  "portable config import, fail-closed availability, opt-in demo migration, SPDX"
                     },
                     {
@@ -64,7 +64,7 @@
     "new_files":  [
                       {
                           "candidate":  "GAPS.md",
-                          "candidate_sha256":  "c718f67692eb71b25ad20d02a03ef927dc8d8d9e30b7f50391201667373855d7"
+                          "candidate_sha256":  "d9ea34ba16d2c2b038fcea8b071d6dada11639b76d59bbcab40ad02f9f79b6cb"
                       },
                       {
                           "candidate":  "migrations/0001_initial.sql",
@@ -80,7 +80,7 @@
                       },
                       {
                           "candidate":  "README.md",
-                          "candidate_sha256":  "228bee0c67a05f53888f22af74afd60ee4202796bc2e6ac2bbe03f53f50f3054"
+                          "candidate_sha256":  "4b5eb643a06154be08a8aa3a541a64d4d8a851aa065b91d8cc2fd6eaaa3f512d"
                       },
                       {
                           "candidate":  "requirements-test.txt",
@@ -88,7 +88,7 @@
                       },
                       {
                           "candidate":  "runtime.env.example",
-                          "candidate_sha256":  "9dc1a37dc1ea6339e0e7b73625674a0392ea9400ff09b318b808c100590dde4d"
+                          "candidate_sha256":  "f77fe329a2e6ef9ea15caec05d3645cd2beff2d0cc9b8d8cdbf87eec87ba9dc0"
                       },
                       {
                           "candidate":  "scripts/extract_initial_schema.py",
@@ -104,7 +104,7 @@
                       },
                       {
                           "candidate":  "src/r740_portal/community_config.py",
-                          "candidate_sha256":  "2230e44fb009d3d6f32d6331c220708afc9ac62abc6b0fa00588fee95197f50f"
+                          "candidate_sha256":  "103f29c9db707892bde85338d2268878fde83628c174e4347365ffaf08769d19"
                       },
                       {
                           "candidate":  "tests/secret_scan.py",
@@ -116,7 +116,7 @@
                       },
                       {
                           "candidate":  "tests/test_portal_contracts.py",
-                          "candidate_sha256":  "fcf5ed4185fcb579e561b2ff5a7c34aac1f9cb7e9c6d8124fe5465aba3d5b3ec"
+                          "candidate_sha256":  "d488244095c3665a7f7a022e107efbb632f1e271aa39ff9f0ec22568064ed360"
                       },
                       {
                           "candidate":  "Dockerfile",

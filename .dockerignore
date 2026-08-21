@@ -1,9 +1,12 @@
 .git
 .env
 config/runtime.env
+config/portal.env
 secrets
 data
 models
+build
+dist
+*.egg-info
 __pycache__
 *.py[cod]
-

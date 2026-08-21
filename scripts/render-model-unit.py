@@ -44,11 +44,11 @@ def bounded_int(config: dict[str, object], name: str, low: int, high: int) -> in
     return value
 
 
-def render(config: dict[str, object]) -> tuple[str, str]:
+def render(config: dict[str, object]) -> tuple[str, str, str]:
     required = {
         "schema", "model_id", "unit_slug", "service_user", "port", "runtime",
         "runtime_size", "runtime_sha256", "model", "model_size", "model_sha256",
-        "ctx_size", "gpu_layers", "parallel", "jinja", "reasoning",
+        "ctx_size", "gpu_layers", "parallel", "jinja", "reasoning", "checksum_file",
     }
     if set(config) - (required | {"mmproj", "mmproj_size", "mmproj_sha256", "image_min_tokens", "flash_attn", "fit", "spec_type"}):
         raise ValueError("manifest contains unsupported fields")
@@ -62,10 +62,16 @@ def render(config: dict[str, object]) -> tuple[str, str]:
     if not re.fullmatch(r"[a-z_][a-z0-9_-]{0,31}", user):
         raise ValueError("service_user is invalid")
     port = bounded_int(config, "port", 1024, 65535)
-    runtime = checked_file(str(config["runtime"]), int(config["runtime_size"]), str(config["runtime_sha256"]), executable=True)
-    model = checked_file(str(config["model"]), int(config["model_size"]), str(config["model_sha256"]))
+    checksum_file_raw = str(config["checksum_file"])
+    if not SAFE_PATH.fullmatch(checksum_file_raw):
+        raise ValueError("checksum_file must be an absolute safe path")
+    checksum_file = Path(checksum_file_raw)
+    runtime_raw = str(config["runtime"])
+    model_raw = str(config["model"])
+    runtime = checked_file(runtime_raw, int(config["runtime_size"]), str(config["runtime_sha256"]), executable=True)
+    model = checked_file(model_raw, int(config["model_size"]), str(config["model_sha256"]))
     command = [
-        str(runtime), "--model", str(model), "--alias", model_id,
+        runtime_raw, "--model", model_raw, "--alias", model_id,
         "--host", "127.0.0.1", "--port", str(port),
         "--ctx-size", str(bounded_int(config, "ctx_size", 512, 32768)),
         "--n-gpu-layers", str(bounded_int(config, "gpu_layers", 0, 999)),
@@ -80,11 +86,13 @@ def render(config: dict[str, object]) -> tuple[str, str]:
         raise ValueError("reasoning must be off or on")
     command.extend(["--reasoning", reasoning])
     mmproj_path = None
+    mmproj_raw = None
     if "mmproj" in config:
         if not {"mmproj_size", "mmproj_sha256"} <= set(config):
             raise ValueError("mmproj size and hash are required")
-        mmproj_path = checked_file(str(config["mmproj"]), int(config["mmproj_size"]), str(config["mmproj_sha256"]))
-        command.extend(["--mmproj", str(mmproj_path)])
+        mmproj_raw = str(config["mmproj"])
+        mmproj_path = checked_file(mmproj_raw, int(config["mmproj_size"]), str(config["mmproj_sha256"]))
+        command.extend(["--mmproj", mmproj_raw])
     if "image_min_tokens" in config:
         command.extend(["--image-min-tokens", str(bounded_int(config, "image_min_tokens", 64, 8192))])
     for name, flag in (("flash_attn", "--flash-attn"), ("fit", "--fit")):
@@ -102,6 +110,7 @@ def render(config: dict[str, object]) -> tuple[str, str]:
 
     unit_name = f"r740-model-{slug}.service"
     known_units = {
+        "r740-model-community.service",
         "r740-model-qwen36.service", "r740-model-qwen36-heretic.service",
         "r740-model-qwen3.service", "r740-model-qwen3vl.service",
         "r740-model-glm47.service", "r740-model-glm-ocr.service",
@@ -112,16 +121,24 @@ def render(config: dict[str, object]) -> tuple[str, str]:
         "@MODEL_ID@": model_id,
         "@SERVICE_USER@": user,
         "@EXEC_START@": " ".join(command),
-        "@RUNTIME@": str(runtime),
-        "@MODEL@": str(model),
-        "@MMPROJ_READONLY@": str(mmproj_path) if mmproj_path else str(model),
+        "@RUNTIME@": runtime_raw,
+        "@MODEL@": model_raw,
+        "@MMPROJ_READONLY@": mmproj_raw if mmproj_raw else model_raw,
         "@CONFLICTS@": conflicts,
+        "@CHECKSUM_FILE@": checksum_file_raw,
     }
     for key, value in replacements.items():
         text = text.replace(key, value)
     if "@" in text:
         raise ValueError("unit template contains unresolved placeholders")
-    return unit_name, text
+    artifacts = [
+        (str(config["runtime_sha256"]), runtime_raw),
+        (str(config["model_sha256"]), model_raw),
+    ]
+    if mmproj_path is not None:
+        artifacts.append((str(config["mmproj_sha256"]), mmproj_raw))
+    checksum_content = "".join(f"{expected}  {path}\n" for expected, path in artifacts)
+    return unit_name, text, checksum_content
 
 
 def main() -> None:
@@ -130,13 +147,17 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
     config = json.loads(args.manifest.read_text(encoding="utf-8"))
-    unit_name, content = render(config)
+    unit_name, content, checksum_content = render(config)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     output = args.output_dir / unit_name
+    checksum_output = args.output_dir / Path(str(config["checksum_file"])).name
     if output.exists():
         raise SystemExit(f"refusing to overwrite existing unit: {output}")
+    if checksum_output.exists():
+        raise SystemExit(f"refusing to overwrite existing checksum file: {checksum_output}")
     output.write_text(content, encoding="utf-8", newline="\n")
-    print(f"Rendered {unit_name}; it was not enabled or started.")
+    checksum_output.write_text(checksum_content, encoding="utf-8", newline="\n")
+    print(f"Rendered {unit_name} and {checksum_output.name}; nothing was enabled or started.")
 
 
 if __name__ == "__main__":

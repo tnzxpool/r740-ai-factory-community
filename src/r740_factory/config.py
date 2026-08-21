@@ -26,6 +26,7 @@ class Settings:
     admin_token_file: Path
     hardware_profile: str
     inference_base_url: str
+    inference_api_key_file: Path | None
     inference_timeout_seconds: int
     allowed_origins: tuple[str, ...]
 
@@ -51,6 +52,10 @@ class Settings:
             ),
             hardware_profile=profile,
             inference_base_url=os.getenv("R740_INFERENCE_BASE_URL", "").rstrip("/"),
+            inference_api_key_file=(
+                Path(os.environ["R740_INFERENCE_API_KEY_FILE"])
+                if os.getenv("R740_INFERENCE_API_KEY_FILE", "").strip() else None
+            ),
             inference_timeout_seconds=_positive_int(
                 "R740_INFERENCE_TIMEOUT_SECONDS", 120
             ),
@@ -67,3 +72,14 @@ class Settings:
         if len(token) < 32:
             raise RuntimeError("admin token must contain at least 32 characters")
         return token
+
+    def read_inference_api_key(self) -> str:
+        if self.inference_api_key_file is None:
+            return ""
+        try:
+            value = self.inference_api_key_file.read_text(encoding="utf-8").strip()
+        except OSError as exc:
+            raise RuntimeError("inference API key file is not readable") from exc
+        if not value:
+            raise RuntimeError("inference API key file is empty")
+        return value

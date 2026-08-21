@@ -9,6 +9,7 @@ def main() -> None:
     installer = (ROOT / "scripts/install-core-systemd.sh").read_text(encoding="utf-8")
     unit = (ROOT / "systemd/r740-ai-core.service.in").read_text(encoding="utf-8")
     assert '"$(id -u)" -ne 0' in installer
+    assert "sys.version_info >= (3,11)" in installer
     assert "--no-index --find-links" in installer
     assert "assert not settings.execution_enabled" in installer
     assert "shlex.split(value, posix=True)" in installer

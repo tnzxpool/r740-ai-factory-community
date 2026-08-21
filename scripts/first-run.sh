@@ -8,6 +8,7 @@ CONFIG_DIR=${R740_CONFIG_DIR:-"$PROJECT_DIR/config"}
 SECRET_DIR=${R740_SECRET_DIR:-"$PROJECT_DIR/secrets"}
 DATA_DIR=${R740_DATA_DIR:-"$PROJECT_DIR/data"}
 MODEL_DIR=${R740_MODEL_DIR:-"$PROJECT_DIR/models"}
+CREATE_PORTAL_CONFIG=${R740_CREATE_PORTAL_CONFIG:-1}
 
 umask 077
 mkdir -p "$CONFIG_DIR" "$SECRET_DIR" "$DATA_DIR" "$MODEL_DIR"
@@ -45,10 +46,12 @@ fi
 chmod 600 "$RUNTIME_FILE"
 
 PORTAL_RUNTIME_FILE="$CONFIG_DIR/portal.env"
-if [ ! -e "$PORTAL_RUNTIME_FILE" ]; then
-  cp "$PROJECT_DIR/components/portal/runtime.env.example" "$PORTAL_RUNTIME_FILE"
+if [ "$CREATE_PORTAL_CONFIG" = 1 ]; then
+  if [ ! -e "$PORTAL_RUNTIME_FILE" ]; then
+    cp "$PROJECT_DIR/components/portal/runtime.env.example" "$PORTAL_RUNTIME_FILE"
+  fi
+  chmod 600 "$PORTAL_RUNTIME_FILE"
 fi
-chmod 600 "$PORTAL_RUNTIME_FILE"
 
 printf '%s\n' "First-run configuration created."
 printf '%s\n' "Admin token stored at: $TOKEN_FILE"

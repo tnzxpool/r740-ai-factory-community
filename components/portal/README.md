@@ -1,11 +1,11 @@
 <!-- SPDX-FileCopyrightText: 2026 R740 AI Factory contributors -->
 <!-- SPDX-License-Identifier: LGPL-3.0-or-later -->
 
-# R740 AI Factory Community portal candidate
+# R740 AI Factory Community portal
 
-Sanitized staging assembled from the hash-identical CT120 portal inventory. It
-does not modify or depend on the live server and has not been copied into the
-Community repository.
+Sanitized source assembled from a hash-verified private portal inventory. It
+does not modify or depend on the private server and is included in this
+Community repository as the advanced, fail-closed portal profile.
 
 ## Preserved behavior
 
@@ -51,4 +51,3 @@ fail closed. Do not set demo mode unless the installation owner deliberately
 creates and protects the password file.
 
 See `SOURCE_MANIFEST.json` for ancestry and `GAPS.md` for remaining release gates.
-

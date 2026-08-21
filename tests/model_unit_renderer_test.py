@@ -18,6 +18,7 @@ def base() -> dict[str, object]:
     return {
         "schema": 1, "model_id": "qwen3-8b", "unit_slug": "qwen3",
         "service_user": "r740-ai", "port": 41140,
+        "checksum_file": "/etc/r740-ai-factory/models.d/qwen3-8b.sha256",
         "runtime": "/opt/runtime/llama-server", "runtime_size": 100,
         "runtime_sha256": "a" * 64,
         "model": "/var/lib/r740/models/qwen.gguf", "model_size": 200,
@@ -32,10 +33,13 @@ def main() -> None:
         return Path(path)
 
     with patch.object(module, "checked_file", side_effect=accepted):
-        name, unit = module.render(base())
+        name, unit, checksums = module.render(base())
         assert name == "r740-model-qwen3.service"
         assert "--host 127.0.0.1 --port 41140" in unit
         assert "--spec-type none" in unit and "--fit off" in unit
+        assert "ExecStartPre=/usr/bin/sha256sum --check --status /etc/r740-ai-factory/models.d/qwen3-8b.sha256" in unit
+        assert "a" * 64 + "  /opt/runtime/llama-server" in checksums
+        assert "b" * 64 + "  /var/lib/r740/models/qwen.gguf" in checksums
         assert name not in unit.split("Conflicts=", 1)[1].splitlines()[0]
         assert "@" not in unit
 

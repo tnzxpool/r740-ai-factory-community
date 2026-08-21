@@ -1,7 +1,7 @@
-# R740 AI Factory community core candidate
+# R740 AI Factory community core
 
-Sanitized source staging derived from the hash-verified CT101 runtime. It is not a
-deployment bundle and does not contain model weights, credentials, live state, host
+Sanitized source derived from the hash-verified private runtime. It does not
+contain model weights, credentials, live state, host
 addresses, qualification artefacts or service configuration from the private server.
 
 The default configuration is fail-closed:
@@ -14,8 +14,9 @@ The default configuration is fail-closed:
 - the graphics queue remains a bounded FIFO with per-owner limits;
 - models are unavailable until local qualification evidence passes.
 
-Run the candidate tests with `python -m unittest discover -s tests -v`. This staging
-still requires portable systemd/model runtime templates before it can be installed.
+Run the tests with `python -m unittest discover -s tests -v`. The repository
+includes conservative systemd templates and `scripts/install-core-systemd.sh`,
+but core execution remains disabled until local model services are qualified.
 
 See `SOURCE-MANIFEST.json` and `NONPORTABLE.md` for ancestry and remaining platform
 assumptions.

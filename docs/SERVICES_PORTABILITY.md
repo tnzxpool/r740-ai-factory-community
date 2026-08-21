@@ -1,38 +1,35 @@
-# Portability gaps
+<!-- SPDX-FileCopyrightText: 2026 R740 AI Factory contributors -->
+<!-- SPDX-License-Identifier: LGPL-3.0-or-later -->
+
+# Optional service portability
+
+The repository includes sanitized source, templates, notices, SPDX metadata and
+SBOM generation for the optional services. They are not enabled by the default
+installer because their host requirements differ.
 
 ## Parser
 
-- The Tika JAR is intentionally absent; the pinned downloader needs network.
-- Java 17, Tesseract 5.3 and ENG/ITA data must be installed per distribution.
-- Only auth/health is portable-tested here; the Office/OCR matrix needs Linux.
+Requires Java 17, Tika 3.3.2, Tesseract 5.3 and selected language data. The Tika
+JAR is downloaded with a pinned SHA-256; it is not redistributed.
 
-## Tools
+## Read-only tools
 
-- SearXNG is pinned to an upstream commit but its Python transitive dependency
-  lock must be regenerated reproducibly for each supported distribution.
-- Production isolation still requires firewall rules allowing only the portal.
-- Existing SSRF unit tests need the locked FastAPI/TestClient environment.
+Requires a target-specific SearXNG environment. Keep the broker behind the portal
+and preserve the SSRF allowlist and firewall boundary.
 
 ## Sandbox
 
-- Requires a dedicated Linux VM, rootless Podman, project quotas, uidmap,
-  slirp4netns and fuse-overlayfs. A general-purpose shared host is not supported.
-- The service retains narrowly required privileged capabilities for quota and
-  rootless-runner management; host firewall and VM isolation remain mandatory.
-- Clean-install, hostile execution and quota exhaustion tests remain Linux gates.
+Requires a dedicated Linux VM with rootless Podman, project quotas, uidmap,
+slirp4netns and fuse-overlayfs. Do not install it on a shared general-purpose host.
 
 ## Local MCP
 
-- Secure storage is Windows DPAPI-specific. macOS Keychain and Linux Secret
-  Service adapters do not exist yet.
-- Server-side pairing/revocation is outside this candidate and needs E2E testing.
-- Dependency hashes currently reflect the authoritative Windows 0.2.1 baseline;
-  other platforms need separately generated hash-locked artifacts.
+The packaged client uses Windows DPAPI. Pairing/revocation must be tested against
+the target portal. macOS Keychain and Linux Secret Service are roadmap items.
 
-## Release-wide
+## Core and graphics
 
-- Complete LGPL/GPL texts, copyright review, third-party notices and SBOM remain
-  release gates. SPDX headers record intended policy, not completed clearance.
-- No service should be enabled until templates are rendered, local secrets are
-  generated, bind/allowlist values are reviewed and a firewall is active.
-
+The service templates are included. GPU lifecycle uses systemd, POSIX flock and
+NVIDIA telemetry. The supplied P40 profile is a reproducible target, not a claim
+that unrelated hardware is qualified. Model weights remain external and retain
+their own licenses.

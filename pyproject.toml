@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "r740-ai-factory-community"
-version = "0.1.0"
-description = "Portable control-plane skeleton for local AI factory experiments"
+version = "0.2.0"
+description = "Installable local AI control plane with authenticated OpenAI-compatible chat"
 requires-python = ">=3.10"
 license = {text = "LGPL-3.0-or-later"}
 dependencies = []

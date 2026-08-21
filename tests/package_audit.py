@@ -21,7 +21,7 @@ SECRET_PATTERNS = (
     re.compile(r"\bhf_[A-Za-z0-9]{20,}\b"),
     re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
 )
-IGNORED_PARTS = {".git", "__pycache__", ".pytest_cache"}
+IGNORED_PARTS = {".git", "__pycache__", ".pytest_cache", "build", "dist"}
 
 
 def source_files() -> list[Path]:
@@ -30,7 +30,7 @@ def source_files() -> list[Path]:
         for path in ROOT.rglob("*")
         if path.is_file()
         and path.resolve() != Path(__file__).resolve()
-        and not any(part in IGNORED_PARTS for part in path.parts)
+        and not any(part in IGNORED_PARTS or part.endswith(".egg-info") for part in path.parts)
     ]
 
 
@@ -40,8 +40,8 @@ def main() -> None:
     for path in files:
         try:
             text = path.read_text(encoding="utf-8")
-        except UnicodeDecodeError:
-            continue
+        except UnicodeDecodeError as error:
+            raise AssertionError(f"unreviewed binary artifact in source package: {path}") from error
         for marker in FORBIDDEN_TEXT:
             assert marker not in text, f"deployment-specific marker in {path}: {marker}"
         for pattern in SECRET_PATTERNS:
@@ -50,7 +50,8 @@ def main() -> None:
     assert not (ROOT / "secrets/admin_token").exists()
     assert not (ROOT / "config/runtime.env").exists()
     gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
-    assert "config/runtime.env" in gitignore and "secrets/*" in gitignore
+    assert "config/runtime.env" in gitignore and "config/portal.env" in gitignore and "secrets/*" in gitignore
+    assert "build/" in gitignore and "dist/" in gitignore and "*.egg-info/" in gitignore
 
     assert (ROOT / "COPYING").is_file()
     assert (ROOT / "COPYING.LESSER").is_file()

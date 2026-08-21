@@ -64,7 +64,7 @@ def build() -> dict[str, object]:
     components.sort(key=lambda item: (item["name"], item["version"]))
     return {
         "bomFormat": "CycloneDX", "specVersion": "1.6", "serialNumber": "urn:uuid:00000000-0000-4000-8000-000000000740",
-        "version": 1, "metadata": {"timestamp": created(), "component": {"type": "application", "name": "r740-ai-factory-community", "version": "0.1.0"}},
+        "version": 1, "metadata": {"timestamp": created(), "component": {"type": "application", "name": "r740-ai-factory-community", "version": "0.2.0"}},
         "components": components,
     }
 

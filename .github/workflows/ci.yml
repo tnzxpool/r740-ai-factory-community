@@ -21,7 +21,12 @@ jobs:
       - name: Package audit
         run: python tests/package_audit.py
       - name: Smoke test
-        run: python tests/smoke_test.py
+        run: |
+          python tests/smoke_test.py
+          python tests/install_journey_test.py
+          python tests/docs_contract_test.py
+          python tests/docs_links_test.py
+          python tests/model_registration_test.py
       - name: Source import and SBOM tests
         run: |
           python tests/source_import_test.py
@@ -29,11 +34,12 @@ jobs:
           python tests/portal_installer_test.py
           python tests/core_installer_test.py
           python tests/model_unit_renderer_test.py
+          python tests/base_installer_test.py
           python tests/dependency_sbom_test.py
           SOURCE_DATE_EPOCH=0 python scripts/generate-sbom.py --output dist/source-sbom.spdx.json
           SOURCE_DATE_EPOCH=0 python scripts/generate-dependency-sbom.py --output dist/dependencies.cdx.json
       - name: Shell syntax
-        run: bash -n scripts/first-run.sh scripts/install-systemd.sh scripts/doctor.sh scripts/uninstall-systemd.sh
+        run: bash -n scripts/*.sh services/parser/deploy/download-tika.sh
       - name: Build package
         run: python -m pip wheel --no-deps --wheel-dir dist .
 
@@ -58,6 +64,14 @@ jobs:
         run: |
           docker compose --profile cpu build
           docker compose --profile portal build
+      - name: Authenticated container E2E
+        run: |
+          python tests/fake_openai_backend.py --port 18080 &
+          backend_pid=$!
+          trap 'docker compose --profile cpu down; kill "$backend_pid" 2>/dev/null || true' EXIT
+          sed -i 's|^R740_INFERENCE_BASE_URL=.*|R740_INFERENCE_BASE_URL=http://host.docker.internal:18080|' config/runtime.env
+          ./scripts/bootstrap-compose.sh cpu start
+          python scripts/verify-install.py --expect-inference --model local-model
 
   auxiliary-services:
     runs-on: ubuntu-latest

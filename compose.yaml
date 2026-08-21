@@ -17,8 +17,9 @@ x-common: &common
   volumes:
     - ./data:/var/lib/r740-ai-factory
     - ./models:/models:ro
+    - ./secrets:/run/local-secrets:ro
   ports:
-    - "${R740_HTTP_PORT:-8080}:8080"
+    - "127.0.0.1:${R740_HTTP_PORT:-8080}:8080"
   healthcheck:
     test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz', timeout=3)"]
     interval: 15s
@@ -29,6 +30,8 @@ x-common: &common
     - no-new-privileges:true
   cap_drop:
     - ALL
+  extra_hosts:
+    - "host.docker.internal:host-gateway"
 
 services:
   factory-cpu:

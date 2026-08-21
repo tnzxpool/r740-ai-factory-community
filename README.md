@@ -1,176 +1,162 @@
-# R740 AI Factory Community Edition — installer candidate
+# R740 AI Factory Community Edition
 
-This is a clean-room, secret-free packaging skeleton. It is intentionally not a
-copy of the live R740 deployment. It provides a small working control plane,
-CPU/NVIDIA deployment profiles, first-run secret creation, model manifests and
-an adapter boundary for an OpenAI-compatible inference server.
+A secret-free, weight-free local AI application for Linux workstations and
+servers. The supported Community path provides a functional browser chat and
+an authenticated OpenAI-compatible proxy. It can use an existing backend or a
+local `llama.cpp` server, including CUDA builds for Tesla P40 (compute 6.1).
 
-## What works now
+No production password, host address, certificate, database or model weight is
+stored in this repository.
 
-- `GET /healthz`, `/api/v1/info`, `/api/v1/hardware`, `/api/v1/models`;
-- authenticated `POST /api/v1/chat/completions` proxy when an inference backend
-  is configured;
-- Docker Compose profiles for CPU and NVIDIA hosts;
-- a native Linux/systemd installer;
-- first-run secrets generated locally with restrictive permissions;
-- no bundled model weights and no automatic model download;
-- a dependency-free smoke test covering startup, manifests and authentication.
+## Choose one supported path
 
-The web UI and control plane work without a GPU. Inference requires an external
-OpenAI-compatible backend such as llama.cpp. The package never assumes a Tesla
-P40; the NVIDIA adapter reports detected hardware and leaves backend-specific
-flags to the operator.
+| Goal | Path | Result |
+|---|---|---|
+| Check the UI and APIs | Docker Compose `cpu` | Control plane and browser chat; inference is disabled until a backend is configured |
+| Use an existing OpenAI-compatible backend | Docker Compose `cpu` | Functional chat through the configured backend |
+| Use a local GGUF on a Linux/P40 host | Native systemd | Hash-pinned `llama.cpp` service plus functional browser chat |
+| Inspect the advanced multi-user UI | Docker Compose `portal` | Configuration preview; optional production-derived services remain disabled |
 
-## Quick start with Docker Compose
+The `nvidia` Compose profile exposes GPU detection to the control plane; it does
+**not** silently download or start a model. Use the native model procedure for a
+reviewed local GGUF.
 
-Requirements: Linux, Docker Engine and Compose v2. For the NVIDIA profile also
-install the NVIDIA driver and NVIDIA Container Toolkit.
+## Five-minute local start
+
+Requirements: Linux, Python 3.10+, Docker Engine and Docker Compose v2.
 
 ```sh
-./scripts/first-run.sh
-docker compose --profile cpu up --build
+git clone https://github.com/tnzxpool/r740-ai-factory-community.git
+cd r740-ai-factory-community
+./scripts/bootstrap-compose.sh cpu
 ```
 
-Open `http://localhost:8080`. Use exactly one profile at a time:
+Open <http://127.0.0.1:8080>. Read the administrator token locally (it is not
+printed or committed) and paste it in the page:
 
 ```sh
-docker compose --profile nvidia up --build
+cat secrets/admin_token
 ```
 
-To exercise the full portal UI without a model backend:
+At this point health, hardware and catalog work. Chat reports “backend not
+configured” until `R740_INFERENCE_BASE_URL` in `config/runtime.env` points to a
+trusted OpenAI-compatible server. For a backend running on the Docker host:
 
-```sh
-./scripts/first-run.sh
-docker compose --profile portal up --build
+```text
+R740_INFERENCE_BASE_URL=http://host.docker.internal:8000
 ```
 
-Open `http://localhost:8081`. The one-time administrator setup token is created
-locally in `secrets/setup_token`; inspect it only on the installation host when
-the setup page asks for it. The portal starts with inference, parser, tools,
-sandbox and demo access disabled, so unavailable operations fail closed rather
-than reaching external services.
-
-The generated admin token remains in `secrets/admin_token`; it is mounted as a
-file and is never placed in the image or Compose file. To connect inference,
-edit `config/runtime.env` and set `R740_INFERENCE_BASE_URL` to a trusted backend.
-
-## Native Linux/systemd
-
-Run as root on a systemd distribution:
+Then apply the change and verify it:
 
 ```sh
+docker compose --profile cpu up -d --build
+python3 scripts/verify-install.py --expect-inference --model YOUR_BACKEND_MODEL_ID
+```
+
+## Local GGUF on Tesla P40 or another NVIDIA GPU
+
+This path never downloads a model automatically. You choose a licensed GGUF,
+record its immutable upstream revision and install it locally.
+
+```sh
+sudo ./scripts/preflight.sh systemd-model
 sudo ./scripts/install-systemd.sh
+
+# Build the pinned, reviewed llama.cpp revision for Pascal sm_61.
+./scripts/build-llama-cpp.sh cuda-p40
+sudo install -D -m 0755 build/llama.cpp-build/bin/llama-server \
+  /usr/local/libexec/r740-ai-factory/llama-server
+
+# Copy your own reviewed GGUF into the protected model directory.
+sudo install -o r740-ai -g r740-ai -m 0640 /path/to/model.gguf \
+  /var/lib/r740-ai-factory/models/model.gguf
+
+# Hash, register, install and start the loopback-only model service.
+sudo python3 scripts/register-local-model.py \
+  --model /var/lib/r740-ai-factory/models/model.gguf \
+  --runtime /usr/local/libexec/r740-ai-factory/llama-server \
+  --id local-model --display-name "Local model" \
+  --license "UPSTREAM-LICENSE" \
+  --upstream-repo "owner/repository" --revision "immutable-revision" \
+  --install-systemd --start
+
 sudo systemctl enable --now r740-ai-factory
+sudo ./scripts/doctor.sh systemd
+sudo python3 scripts/verify-install.py \
+  --url http://127.0.0.1:8080 \
+  --token-file /etc/r740-ai-factory/secrets/admin_token \
+  --expect-inference --model local-model
 ```
 
-The installer places code under `/opt/r740-ai-factory`, configuration and the
-admin token under `/etc/r740-ai-factory`, and mutable state under
-`/var/lib/r740-ai-factory`. It does not install CUDA, drivers, Docker or models.
+See [the complete installation guide](docs/INSTALL.md) before exposing the
+service to another machine or changing model parameters.
 
-Install the full portal as a separate, loopback-only systemd service with:
+## Remote access without public exposure
+
+Listeners are local or unencrypted development endpoints. Keep them private.
+From a workstation, use an SSH tunnel:
 
 ```sh
-sudo ./scripts/install-portal-systemd.sh
-sudo systemctl enable --now r740-ai-portal
+ssh -L 8080:127.0.0.1:8080 user@server.example
 ```
 
-The installer creates an isolated Python environment, generates the setup token
-locally and leaves the service stopped until the operator enables it. Set
-`R740_WHEELHOUSE=/path/to/wheels` to force an offline dependency install.
+Then browse to <http://127.0.0.1:8080>. For permanent LAN/Internet access, add
+a separately managed TLS reverse proxy and firewall policy; never publish model,
+core, parser, tools, sandbox or administrator ports directly.
 
-On a systemd GPU host, install the optional core controller with:
-
-```sh
-sudo ./scripts/install-core-systemd.sh
-```
-
-This installs five loopback-only control units but deliberately leaves every
-unit disabled and stopped. It does not download models or create inference
-units. Configure immutable model manifests, install the reviewed runtime and
-qualify local artifacts before enabling the model manager, gateway,
-orchestrator or graphics manager. Autorouting execution remains off by default.
-
-Diagnose or remove the native installation with:
+## Operations
 
 ```sh
-sudo ./scripts/doctor.sh
+# Diagnose Compose or native systemd installs
+./scripts/doctor.sh compose
+sudo ./scripts/doctor.sh systemd
+
+# Stop/remove Compose containers; local config and data remain
+docker compose --profile cpu down
+
+# Remove native units and code, preserving config/data
 sudo ./scripts/uninstall-systemd.sh --yes
+
+# Irreversibly remove installation config and state as well
+sudo ./scripts/uninstall-systemd.sh --yes --purge-data
 ```
 
-Uninstall preserves configuration and state. Add `--purge-data` only when those
-installation-specific directories should be deleted permanently.
+Detailed references:
 
-## Validation
+- [Installation and first model](docs/INSTALL.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Operations, upgrade and rollback](docs/OPERATIONS.md)
+- [Architecture and supported scope](docs/ARCHITECTURE.md)
+- [Model provenance policy](model-manifests/README.md)
+- [Security policy](SECURITY.md)
+- [Optional service portability](docs/SERVICES_PORTABILITY.md)
+- [Release history](CHANGELOG.md)
+
+## Validation and release evidence
 
 ```sh
-python3 tests/smoke_test.py
-python3 tests/source_import_test.py
-python3 tests/sbom_test.py
-python3 tests/dependency_sbom_test.py
+./scripts/release-gate.sh
+python3 scripts/verify-install.py
+# On a clean tagged tree, build a deterministic archive plus SHA-256:
+./scripts/package-release.sh 0.2.0
 ```
 
-Generate a deterministic SPDX 2.3 source SBOM with:
+GitHub Actions tests Python 3.10/3.12, the real POSIX lock, Windows Local-MCP,
+the sanitized core/portal contracts, Compose builds and an authenticated
+container E2E against a disposable OpenAI-compatible backend.
 
-```sh
-SOURCE_DATE_EPOCH=0 python3 scripts/generate-sbom.py --output dist/source-sbom.spdx.json
-SOURCE_DATE_EPOCH=0 python3 scripts/generate-dependency-sbom.py --output dist/dependencies.cdx.json
-```
+## Advanced components
 
-If Docker is available, also validate the selected profile:
+`components/core`, `components/portal`, `services/` and `clients/local-mcp`
+contain sanitized, hash-traced versions of the advanced R740 stack. They are
+included for development and staged integration, but are not falsely presented
+as a one-click clone of the private Proxmox topology. Unsupported features fail
+closed when their backend is absent.
 
-```sh
-docker compose --profile cpu config --quiet
-```
+## License and model boundary
 
-## Model manifests
-
-`model-manifests/catalog.json` contains metadata only. Entries are disabled by
-default and have no download URL. Operators must verify each model's license,
-choose a quantization compatible with their hardware, pin an immutable revision
-and SHA-256, then explicitly enable it. See `model-manifests/README.md`.
-
-## Security boundary
-
-- Generated files are ignored by Git and permissions are checked at first run.
-- The API never returns the admin token or environment contents.
-- POST endpoints require `Authorization: Bearer <admin token>`.
-- The proxy accepts only the configured backend base URL and applies timeouts.
-- HTTPS and public exposure belong at a separately configured reverse proxy.
-
-Do not expose port 8080 directly to the Internet. Use a TLS reverse proxy and
-network policy appropriate to the deployment.
-
-## Application component staging
-
-Sanitized, hash-traced versions of the production core and portal now live under
-`components/core` and `components/portal`. They preserve model lifecycle,
-single-GPU serialization, routing, graphics, users/capabilities, FIFO and the
-compact UI while replacing deployment addresses, paths and demo credentials
-with fail-closed configuration.
-
-They are deliberately not wired into the base installer yet. A release still
-needs a common process topology, complete migration chain, rendered service
-units, clean-machine integration and product-level E2E tests. The live user
-database, Proxmox layout and site-specific configuration are never imported.
-
-## Staged optional services
-
-Sanitized, hash-traced source is now included for:
-
-- the authenticated Tika/Tesseract parser gateway;
-- read-only web/MCP tools with SSRF protections;
-- the isolated rootless-Podman sandbox API;
-- the Windows Local-MCP read-only connector.
-
-They are not enabled by the base installer. Each service has its own example
-configuration, dependency lock or system dependency manifest, unit template and
-tests under `services/` or `clients/`. Platform acceptance still requires Linux
-for parser/sandbox, SearXNG dependency resolution for tools and Windows DPAPI for
-Local-MCP. See `docs/SERVICES_PORTABILITY.md`.
-
-## Licensing status
-
-Source files carry `SPDX-License-Identifier: LGPL-3.0-or-later`. Before publishing,
-the repository must include the complete official LGPLv3 and GPLv3 license texts,
-copyright ownership, third-party notices and a dependency/model license review.
-This candidate does not claim that release licensing is complete.
+Original source is licensed under `LGPL-3.0-or-later`; see `COPYING`,
+`COPYING.LESSER`, `THIRD_PARTY_NOTICES.md` and the CycloneDX/SPDX inventories.
+Model weights are separate works with their own licenses. This repository does
+not redistribute them or imply that an upstream model is suitable for a given
+use.

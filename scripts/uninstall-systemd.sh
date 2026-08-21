@@ -28,8 +28,19 @@ case "$STATE_DIR" in /var/lib/r740-ai-factory|/var/lib/r740-ai-factory/*) ;; *)
   printf 'Refusing unsafe state path: %s\n' "$STATE_DIR" >&2; exit 3;;
 esac
 
-systemctl disable --now r740-ai-factory.service 2>/dev/null || true
-rm -f /etc/systemd/system/r740-ai-factory.service
+for unit in \
+  r740-ai-factory.service r740-ai-portal.service r740-ai-gateway.service \
+  r740-ai-orchestrator.service r740-ai-model-manager.service \
+  r740-ai-graphics-manager.service r740-ai-autorouting.service; do
+  systemctl disable --now "$unit" 2>/dev/null || true
+  rm -f "/etc/systemd/system/$unit"
+done
+for unit_path in /etc/systemd/system/r740-model-*.service; do
+  [ -e "$unit_path" ] || continue
+  unit=${unit_path##*/}
+  systemctl disable --now "$unit" 2>/dev/null || true
+  rm -f "$unit_path"
+done
 systemctl daemon-reload
 
 if [ -d "$INSTALL_DIR" ]; then
@@ -45,5 +56,4 @@ else
   printf 'Preserved state: %s\n' "$STATE_DIR"
 fi
 
-printf '%s\n' "R740 AI Factory service removed."
-
+printf '%s\n' "R740 AI Factory control plane, portal, core and model units removed."

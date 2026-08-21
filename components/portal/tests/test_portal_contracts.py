@@ -163,3 +163,17 @@ def test_inline_javascript_parses(name: str, tmp_path: Path) -> None:
         ["node", "--check", str(script)], text=True, capture_output=True, timeout=30, check=False,
     )
     assert result.returncode == 0, result.stderr
+def test_direct_browser_admin_network_and_proxy_mode() -> None:
+    request = Request({
+        "type": "http", "http_version": "1.1", "method": "GET", "scheme": "http",
+        "path": "/setup", "raw_path": b"/setup", "root_path": "", "headers": [],
+        "query_string": b"", "server": ("testserver", 80), "client": ("127.0.0.1", 12345),
+    })
+    previous = portal.REQUIRE_OBSERVER_HEADER
+    try:
+        portal.REQUIRE_OBSERVER_HEADER = False
+        assert portal.is_observer(request) is True
+        portal.REQUIRE_OBSERVER_HEADER = True
+        assert portal.is_observer(request) is False
+    finally:
+        portal.REQUIRE_OBSERVER_HEADER = previous

@@ -12,7 +12,11 @@ def main() -> None:
     unit = (ROOT / "systemd/r740-ai-portal.service.in").read_text(encoding="utf-8")
     assert '"$(id -u)" -ne 0' in installer
     assert "--no-index --find-links" in installer
-    assert 'portal_config_new=0' in installer and 'if [ "$portal_config_new" -eq 1 ]' in installer
+    assert 'portal_config_new=0' in installer
+    assert 'AI_PORTAL_DB=\\./data/portal.db$' in installer
+    assert 'AI_SETUP_TOKEN_FILE=\\./secrets/setup_token$' in installer
+    assert "explicit operator paths are preserved" in installer
+    assert "sys.version_info >= (3,11)" in installer
     assert "systemctl enable --now" in installer
     assert not any(line.strip().startswith("systemctl enable") for line in installer.splitlines())
     assert "curl " not in installer and "wget " not in installer

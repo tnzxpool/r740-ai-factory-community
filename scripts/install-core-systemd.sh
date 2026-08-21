@@ -18,6 +18,7 @@ VENV_DIR=${R740_CORE_VENV:-$INSTALL_DIR/venv-core}
 WHEELHOUSE=${R740_WHEELHOUSE:-}
 
 command -v python3 >/dev/null 2>&1 || { echo "python3 >= 3.11 is required" >&2; exit 1; }
+python3 -c 'import sys; raise SystemExit(0 if sys.version_info >= (3,11) else 1)' || { echo "python3 >= 3.11 is required" >&2; exit 1; }
 command -v systemctl >/dev/null 2>&1 || { echo "systemd is required for the GPU controller" >&2; exit 1; }
 if ! id "$SERVICE_USER" >/dev/null 2>&1; then
   useradd --system --home-dir "$STATE_DIR" --shell /usr/sbin/nologin "$SERVICE_USER"

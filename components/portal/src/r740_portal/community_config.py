@@ -111,6 +111,7 @@ SANDBOX_TOKEN = secret_value("AI_SANDBOX_TOKEN", "AI_SANDBOX_TOKEN_FILE")
 ALLOWED_HOSTS = allowed_hosts()
 ADMIN_NETWORK = admin_network()
 AUTOROUTING_UI_ENABLED = env_bool("AI_AUTOROUTING_UI_ENABLED", False)
+REQUIRE_OBSERVER_HEADER = env_bool("AI_REQUIRE_OBSERVER_HEADER", False)
 SESSION_HOURS = env_int("AI_SESSION_HOURS", 8, 1, 168)
 
 # Demo access is absent by default. Enabling it requires a local password file.

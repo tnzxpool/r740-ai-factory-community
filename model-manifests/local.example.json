@@ -3,6 +3,7 @@
   "model_id": "example-local-model",
   "unit_slug": "example",
   "service_user": "r740-ai",
+  "checksum_file": "/etc/r740-ai-factory/models.d/example-local-model.sha256",
   "port": 41140,
   "runtime": "/usr/local/libexec/r740/llama-server",
   "runtime_size": 0,

@@ -46,7 +46,7 @@ from .artifact_policy import (
 from .community_config import (
     ADMIN_NETWORK, ALLOWED_HOSTS, AUTOROUTING_UI_ENABLED, CORE_KEY, CORE_URL,
     DB_PATH, DEMO_GUEST_ENABLED, DEMO_GUEST_PASSWORD_FILE, DEMO_GUEST_USERNAME,
-    LOCAL_MCP_POLICY_KEY_FILE, PARSER_KEY_FILE, PARSER_URL, SANDBOX_TOKEN,
+    LOCAL_MCP_POLICY_KEY_FILE, PARSER_KEY_FILE, PARSER_URL, REQUIRE_OBSERVER_HEADER, SANDBOX_TOKEN,
     SANDBOX_URL, SESSION_HOURS, SETUP_TOKEN_HASH, TOOLS_TOKEN, TOOLS_URL,
 )
 
@@ -729,7 +729,9 @@ def is_admin_lan_ip(value: str) -> bool:
 
 
 def is_observer(request: Request) -> bool:
-    return request.headers.get(OBSERVER_HEADER) == "1" and is_admin_lan_ip(source_ip(request))
+    if not is_admin_lan_ip(source_ip(request)):
+        return False
+    return not REQUIRE_OBSERVER_HEADER or request.headers.get(OBSERVER_HEADER) == "1"
 
 
 def audit_record(

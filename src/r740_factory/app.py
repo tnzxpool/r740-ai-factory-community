@@ -29,14 +29,15 @@ class FactoryServer(ThreadingHTTPServer):
         self.admin_token = settings.read_admin_token()
         self.hardware = select_hardware_adapter(settings.hardware_profile)
         self.inference = OpenAICompatibleAdapter(
-            settings.inference_base_url, settings.inference_timeout_seconds
+            settings.inference_base_url, settings.inference_timeout_seconds,
+            settings.read_inference_api_key(),
         )
         settings.data_dir.mkdir(parents=True, exist_ok=True)
 
 
 class FactoryHandler(BaseHTTPRequestHandler):
     server: FactoryServer
-    server_version = "R740Community/0.1"
+    server_version = "R740Community/0.2"
 
     def log_message(self, fmt: str, *args: object) -> None:
         LOG.info("%s - %s", self.address_string(), fmt % args)
@@ -73,7 +74,7 @@ class FactoryHandler(BaseHTTPRequestHandler):
         self.send_header("Content-Type", content_type)
         self.send_header("Content-Length", str(len(body)))
         self.send_header("X-Content-Type-Options", "nosniff")
-        self.send_header("Content-Security-Policy", "default-src 'self'; style-src 'self' 'unsafe-inline'")
+        self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'")
         self.end_headers()
         self.wfile.write(body)
 
@@ -124,6 +125,8 @@ class FactoryHandler(BaseHTTPRequestHandler):
             self._send_json(HTTPStatus.OK, catalog)
         elif path in {"/", "/index.html"}:
             self._send_file(STATIC_DIR / "index.html")
+        elif path == "/app.js":
+            self._send_file(STATIC_DIR / "app.js")
         else:
             self._send_json(HTTPStatus.NOT_FOUND, {"error": "not found"})
 
@@ -153,6 +156,7 @@ def main() -> None:
     args = parser.parse_args()
     settings = Settings.from_env()
     settings.read_admin_token()
+    settings.read_inference_api_key()
     json.loads(settings.model_catalog.read_text(encoding="utf-8"))
     if args.check_config:
         print("configuration valid")

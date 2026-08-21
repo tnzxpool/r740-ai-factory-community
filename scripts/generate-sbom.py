@@ -26,7 +26,7 @@ def digest(path: Path) -> str:
 def source_files(output: Path | None) -> list[Path]:
     files: list[Path] = []
     for path in ROOT.rglob("*"):
-        if not path.is_file() or any(part in IGNORED_PARTS for part in path.parts):
+        if not path.is_file() or any(part in IGNORED_PARTS or part.endswith(".egg-info") for part in path.parts):
             continue
         relative = path.relative_to(ROOT).as_posix()
         if relative in IGNORED_PREFIXES or (output and path.resolve() == output.resolve()):
@@ -77,7 +77,7 @@ def build(output: Path | None) -> dict[str, object]:
             {
                 "SPDXID": "SPDXRef-Package",
                 "name": "r740-ai-factory-community",
-                "versionInfo": "0.1.0",
+                "versionInfo": "0.2.0",
                 "downloadLocation": "NOASSERTION",
                 "filesAnalyzed": True,
                 "licenseConcluded": "LGPL-3.0-or-later",

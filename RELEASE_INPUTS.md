@@ -1,21 +1,18 @@
-# Release inputs still required
+# Advanced integration roadmap
 
-This candidate proves packaging mechanics; it is not yet the final public repo.
+The supported Community control-plane path is installable and independently
+tested. The following items apply only to promotion of the complete private
+multi-service feature set; they do not invalidate the documented Community path.
 
-- Select the canonical production source for portal, orchestration, model
-  lifecycle, graphics, users/queue and MCP. Do not merge multiple dated
-  candidates by filename similarity.
-- Define supported Linux distributions, NVIDIA driver/CUDA matrix and a tested
-  P40 baseline.
-- Add versioned database migrations and clean initial data fixtures.
-- Add a reverse-proxy/TLS recipe without embedding the live domain or LAN IPs.
-- Pin container base images by digest and create reproducible release archives.
-- Add complete LGPLv3/GPLv3 texts, copyright ownership, third-party notices,
-  SBOM, source-offer compliance review and per-model licensing documentation.
-- Add secret scanning, dependency scanning, container scanning and signed
-  checksums in CI.
-- Add real E2E tests for login, concurrent guest queueing, model switching,
-  image generation, structured output, upload/OCR and recovery after restart.
-- Decide whether the application license should be LGPL, GPL or AGPL with legal
-  review; the current SPDX choice records the requested candidate policy only.
+- portable orchestration of every advanced core/graphics/parser/tools/sandbox
+  service without assuming Proxmox container IDs or private addresses;
+- a complete upgrade migration chain for databases created by older private
+  deployments;
+- clean-machine NVIDIA/P40 acceptance with operator-supplied model weights;
+- optional reverse-proxy recipes for specific distributions;
+- reproducible, target-specific SearXNG/parser/sandbox dependency images;
+- product E2E for multi-user queueing, model switching, graphics, OCR, document
+  ingestion and restart recovery across all optional services.
 
+No advanced integration may weaken the current secret-free, local-only and
+fail-closed defaults.

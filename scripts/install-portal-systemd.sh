@@ -25,6 +25,8 @@ if [ "$PORT" -lt 1024 ] || [ "$PORT" -gt 65535 ]; then
   exit 1
 fi
 command -v python3 >/dev/null 2>&1 || { echo "python3 >= 3.11 is required" >&2; exit 1; }
+python3 -c 'import sys; raise SystemExit(0 if sys.version_info >= (3,11) else 1)' || { echo "python3 >= 3.11 is required" >&2; exit 1; }
+command -v systemctl >/dev/null 2>&1 || { echo "systemd is required" >&2; exit 1; }
 
 if ! id "$SERVICE_USER" >/dev/null 2>&1; then
   useradd --system --home-dir "$STATE_DIR" --shell /usr/sbin/nologin "$SERVICE_USER"
@@ -52,17 +54,16 @@ R740_CONFIG_DIR="$CONFIG_DIR" R740_SECRET_DIR="$CONFIG_DIR/secrets" \
 R740_DATA_DIR="$STATE_DIR" R740_MODEL_DIR="$STATE_DIR/models" \
   "$SOURCE_DIR/scripts/first-run.sh"
 
-if [ "$portal_config_new" -eq 1 ]; then
-  sed \
-    -e "s|^AI_PORTAL_DB=.*|AI_PORTAL_DB=$STATE_DIR/portal/portal.db|" \
-    -e "s|^AI_SETUP_TOKEN_FILE=.*|AI_SETUP_TOKEN_FILE=$CONFIG_DIR/secrets/setup_token|" \
-    -e "s|^AI_PARSER_KEY_FILE=.*|AI_PARSER_KEY_FILE=$CONFIG_DIR/secrets/parser.key|" \
-    -e "s|^AI_TOOLS_TOKEN_FILE=.*|AI_TOOLS_TOKEN_FILE=$CONFIG_DIR/secrets/tools.token|" \
-    -e "s|^AI_SANDBOX_TOKEN_FILE=.*|AI_SANDBOX_TOKEN_FILE=$CONFIG_DIR/secrets/sandbox.token|" \
-    -e "s|^AI_LOCAL_MCP_POLICY_KEY_FILE=.*|AI_LOCAL_MCP_POLICY_KEY_FILE=$CONFIG_DIR/secrets/local-mcp-policy-signing.key|" \
-    "$CONFIG_DIR/portal.env" > "$CONFIG_DIR/portal.env.new"
-  mv "$CONFIG_DIR/portal.env.new" "$CONFIG_DIR/portal.env"
-fi
+# Migrate only untouched example values; explicit operator paths are preserved.
+sed \
+  -e "s|^AI_PORTAL_DB=\./data/portal.db$|AI_PORTAL_DB=$STATE_DIR/portal/portal.db|" \
+  -e "s|^AI_SETUP_TOKEN_FILE=\./secrets/setup_token$|AI_SETUP_TOKEN_FILE=$CONFIG_DIR/secrets/setup_token|" \
+  -e "s|^AI_PARSER_KEY_FILE=\./secrets/parser.key$|AI_PARSER_KEY_FILE=$CONFIG_DIR/secrets/parser.key|" \
+  -e "s|^AI_TOOLS_TOKEN_FILE=\./secrets/tools.token$|AI_TOOLS_TOKEN_FILE=$CONFIG_DIR/secrets/tools.token|" \
+  -e "s|^AI_SANDBOX_TOKEN_FILE=\./secrets/sandbox.token$|AI_SANDBOX_TOKEN_FILE=$CONFIG_DIR/secrets/sandbox.token|" \
+  -e "s|^AI_LOCAL_MCP_POLICY_KEY_FILE=\./secrets/local-mcp-policy-signing.key$|AI_LOCAL_MCP_POLICY_KEY_FILE=$CONFIG_DIR/secrets/local-mcp-policy-signing.key|" \
+  "$CONFIG_DIR/portal.env" > "$CONFIG_DIR/portal.env.new"
+mv "$CONFIG_DIR/portal.env.new" "$CONFIG_DIR/portal.env"
 chmod 0640 "$CONFIG_DIR/portal.env" "$CONFIG_DIR/secrets/setup_token"
 chown root:"$SERVICE_USER" "$CONFIG_DIR/portal.env" "$CONFIG_DIR/secrets/setup_token"
 chown -R root:root "$INSTALL_DIR/components/portal" "$VENV_DIR"

@@ -1,5 +1,6 @@
 .env
 config/runtime.env
+config/portal.env
 secrets/*
 !secrets/.gitkeep
 data/*
@@ -8,4 +9,7 @@ models/*
 !models/.gitkeep
 __pycache__/
 *.py[cod]
-
+build/
+dist/
+*.egg-info/
+.venv/

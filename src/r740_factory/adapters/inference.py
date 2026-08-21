@@ -15,6 +15,7 @@ class InferenceError(RuntimeError):
 class OpenAICompatibleAdapter:
     base_url: str
     timeout_seconds: int
+    api_key: str = ""
 
     @property
     def configured(self) -> bool:
@@ -23,10 +24,13 @@ class OpenAICompatibleAdapter:
     def chat(self, payload: dict[str, object]) -> tuple[int, dict[str, object]]:
         if not self.configured:
             raise InferenceError("inference backend is not configured")
+        headers = {"Content-Type": "application/json"}
+        if self.api_key:
+            headers["Authorization"] = f"Bearer {self.api_key}"
         request = urllib.request.Request(
             f"{self.base_url}/v1/chat/completions",
             data=json.dumps(payload).encode("utf-8"),
-            headers={"Content-Type": "application/json"},
+            headers=headers,
             method="POST",
         )
         try:

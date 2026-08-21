@@ -1,18 +1,18 @@
-# Release requirements
+# Community 0.2 release requirements
 
-The first public tag requires all of the following:
+The Community 0.2 tag requires all of the following:
 
 - authoritative production sources imported through a file-level provenance
   manifest and sanitized into portable configuration;
 - no production identity, credential, database, model weight, log or backup;
 - clean CPU install and UI smoke test;
-- separate NVIDIA/P40 canary with unsupported hardware failing closed;
 - pinned dependencies, third-party notices and SPDX/CycloneDX SBOMs;
-- full secret, license, vulnerability and artifact-content scans;
-- versioned database migrations, upgrade, backup and uninstall documentation;
-- product E2E for authentication, queueing, model switching, graphics, OCR,
-  structured output and restart recovery.
+- secret and artifact-content scans for the packaged tree;
+- upgrade, backup, rollback and uninstall documentation;
+- authenticated control-plane chat E2E against a disposable backend;
+- container build and clean bootstrap in CI.
 
-The current repository is an installable packaging baseline, not yet the full
-production feature set. `RELEASE_INPUTS.md` tracks the remaining integration.
-
+The following are separate qualification gates, not claims of this tag: real
+P40 inference with operator-supplied weights; parser/sandbox/graphics E2E;
+complete transitive vulnerability scanning for each target distribution; and
+the full private multi-service topology. `RELEASE_INPUTS.md` tracks that roadmap.
