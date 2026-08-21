@@ -3,6 +3,9 @@ name: r740-ai-factory
 x-common: &common
   build:
     context: .
+    args:
+      APP_UID: "${R740_CONTAINER_UID:-10001}"
+      APP_GID: "${R740_CONTAINER_GID:-10001}"
   restart: unless-stopped
   env_file:
     - ./config/runtime.env
@@ -69,6 +72,9 @@ services:
     profiles: ["portal"]
     build:
       context: ./components/portal
+      args:
+        APP_UID: "${R740_CONTAINER_UID:-10002}"
+        APP_GID: "${R740_CONTAINER_GID:-10002}"
     restart: unless-stopped
     env_file:
       - ./config/portal.env
@@ -81,7 +87,7 @@ services:
     secrets:
       - setup_token
     volumes:
-      - portal-data:/var/lib/r740-ai-portal
+      - ./data/portal:/var/lib/r740-ai-portal
     ports:
       - "127.0.0.1:${R740_PORTAL_PORT:-8081}:8081"
     healthcheck:
@@ -100,6 +106,3 @@ secrets:
     file: ./secrets/admin_token
   setup_token:
     file: ./secrets/setup_token
-
-volumes:
-  portal-data:

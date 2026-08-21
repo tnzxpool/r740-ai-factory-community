@@ -12,6 +12,15 @@ CREATE_PORTAL_CONFIG=${R740_CREATE_PORTAL_CONFIG:-1}
 
 umask 077
 mkdir -p "$CONFIG_DIR" "$SECRET_DIR" "$DATA_DIR" "$MODEL_DIR"
+mkdir -p "$DATA_DIR/portal"
+
+# Compose runs as the invoking unprivileged user so 0600 secrets remain private
+# and readable without weakening host permissions.
+IDENTITY_FILE="$PROJECT_DIR/.env"
+if [ ! -e "$IDENTITY_FILE" ] && [ "$(id -u)" -ne 0 ]; then
+  printf 'R740_CONTAINER_UID=%s\nR740_CONTAINER_GID=%s\n' "$(id -u)" "$(id -g)" > "$IDENTITY_FILE"
+  chmod 600 "$IDENTITY_FILE"
+fi
 
 TOKEN_FILE="$SECRET_DIR/admin_token"
 if [ ! -s "$TOKEN_FILE" ]; then

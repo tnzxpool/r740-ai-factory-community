@@ -15,6 +15,7 @@ def main() -> None:
     assert 'if [ ! -e "$INSTALL_DIR/model-manifests/catalog.json" ]' in install
     assert '[ "$(basename "$source")" = catalog.json ] && continue' in install
     assert "CREATE_PORTAL_CONFIG" in first
+    assert "R740_CONTAINER_UID" in first and 'chmod 600 "$IDENTITY_FILE"' in first
     assert not any(line.strip().startswith("systemctl enable") for line in install.splitlines())
     for unit in ("r740-ai-factory", "r740-ai-portal", "r740-ai-gateway", "r740-ai-model-manager"):
         assert unit in uninstall

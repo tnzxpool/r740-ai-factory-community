@@ -3,7 +3,8 @@
 FROM python:3.11-slim
 
 ARG APP_UID=10002
-RUN useradd --create-home --uid "${APP_UID}" --shell /usr/sbin/nologin r740-portal
+ARG APP_GID=10002
+RUN groupadd --gid "${APP_GID}" r740-portal && useradd --create-home --uid "${APP_UID}" --gid "${APP_GID}" --shell /usr/sbin/nologin r740-portal
 WORKDIR /opt/r740-portal
 
 COPY requirements.txt pyproject.toml ./

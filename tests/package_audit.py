@@ -127,6 +127,7 @@ def main() -> None:
     assert "profiles: [\"cpu\"]" in compose
     assert "profiles: [\"nvidia\"]" in compose
     assert "cap_drop:" in compose and "no-new-privileges:true" in compose
+    assert "R740_CONTAINER_UID" in compose and "./data/portal:/var/lib/r740-ai-portal" in compose
     print(f"PASS package audit ({len(files)} files, no embedded deployment secrets)")
 
 

@@ -37,6 +37,10 @@ sudo ./scripts/preflight.sh systemd-core
 ./scripts/bootstrap-compose.sh cpu
 ```
 
+Run this as your normal Docker-enabled user, not with `sudo`. First run records
+that user's numeric UID/GID in ignored `.env`; containers then read 0600 secret
+files without making them world-readable.
+
 Generated local files:
 
 - `config/runtime.env`: listener/backend settings;

@@ -44,6 +44,7 @@ fi
 
 case "$MODE" in
   compose-*)
+    [ "$(id -u)" -ne 0 ] || fail "run Compose as an unprivileged user with Docker access, not through sudo"
     command -v docker >/dev/null 2>&1 || fail "Docker Engine is not installed"
     if command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then
       pass "Docker Compose v2"
